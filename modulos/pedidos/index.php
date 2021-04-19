@@ -10,7 +10,7 @@ if (!isset($_SESSION["logueado"])) {
 }
 // include '../../php/menu.php' 
 ?>
-<!DOCTYPE html> 
+<!DOCTYPE html>  
 <html lang="en">
 
     <meta charset="UTF-8">
@@ -32,7 +32,7 @@ if (!isset($_SESSION["logueado"])) {
         <div class="card" id="card-main">
             <div class="card-header">
                 <div class="btn-group fa-pull-right">
-                <button type="button" class="btn btn-danger" title="Nuevo pedido"><i class="fas fa-plus"></i>Agregar</button>
+                <a type="button" class="btn btn-danger agregar" href="/autoparts_system/modulos\pedidos\nuevo.php" title="Nuevo pedido"><i class="fas fa-plus"></i>Agregar</a>
                     <!-- <button type="button" class="agregar_pedido btn btn-danger" ><a class="text-white" href="nuevo.php"><i class="fas fa-plus"></i>
                         Agregar</a>
                     </button> -->

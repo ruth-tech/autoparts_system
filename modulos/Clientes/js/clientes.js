@@ -62,7 +62,7 @@ $(document).ready(function(){
             // Save the url and perform a page load
             var direccion = hrefperfilpersonal + '?personaId=' + personaId; 
             // + '&clienteId='+ clienteId;
-            window.open(direccion);
+            window.open(direccion,"_self");
             
 
         } else {

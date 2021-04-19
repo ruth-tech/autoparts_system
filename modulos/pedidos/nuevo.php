@@ -85,16 +85,17 @@ session_start();
                 $detalle=$f['producto_detalle_descripcion'];
                 $precio=$f['precio_venta'];
             }
-
-        }
-
-        $arreglo[]=array('Id'=>$_GET['productoId'],
+            $arreglo[]=array('Id'=>$_GET['productoId'],
                         'Nombre'=>$nombre,
                         'Detalles'=>$detalle,
                         'Precio'=>$precio,
                         'Cantidad'=>1);
 
         $_SESSION['carrito']=$arreglo;
+
+        }
+
+        
     }
     
 
