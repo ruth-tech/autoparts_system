@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+
+*{
+    /* margin: 0;  
+    padding: 0; */
+    list-style: none;
+    /* text-decoration: none;
+    box-sizing: border-box; */
+    font-family: 'Montserrat', sans-serif;
+   
+}
+
+html {
+  background: #c3c3c3;
+}
+div.container-fluid  {
+    background: #c3c3c3;
+}
+
+
+
+.navbar-brand.logo img{
+    margin: 15px;
+    
+}
+
+.wrapper{
+  margin: 10px;
+}
+/* estilo del logo */
+.wrapper .top_navbar{
+  width: calc(100% - 20px);
+  height: 60px;
+  display: flex;
+  position: fixed;
+  top: 10px;
+  z-index: 100;
+}
+
+
+/* estilo del top-menu */
+ .wrapper .top_navbar .top_menu{
+  width: calc(100% - 70px);
+  height: 100%; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  margin: auto;
+}
+
+.wrapper .top_navbar .top_menu ul{
+  display: flex;
+}
+
+/* top-menu a :hover  */
+.wrapper .top_navbar .top_menu ul li a:hover{
+  background: #ff2b2b;
+  color: #fff;
+}
+/* top-menu a-icono :hover */
+.wrapper .top_navbar .top_menu ul li a:hover i{
+  color: #fff;
+}
+
+
+
+/* .container-main .navbar .nav-item .nav-link:hover{
+    background: rgb(255, 168, 168);
+    color: white;
+} */
+.dropdown-toggle::after {
+  display:none
+}
+
+/* nuevo menu hamburguesa 29-09-2020 */
+/* a{
+  text-decoration: none;
+  color:rgb(255, 255, 255);
+} */
+.active{
+color:#ff0000;
+}
+/* a:hover{
+  color:#ff0000;
+} */
+
+/* header{
+  padding:0;
+} */
+/* body{
+  /* background-color: #020202;
+  font-size: 15px; */
+  /* margin-top: 2px; 
+} */
+
+
+
+
+/* Start of Header Styling*/
+.header {
+  background: #000000;
+  position: relative;
+  width: 100%;
+  height:50px;
+  z-index: 3; /*SIRVE PARA QUE EL MENU SE MUESTRE POR ENCIMA DE LOS ELEMENTOS SIGUIENTES*/
+}
+
+.header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow:auto;
+  background-color: #000000;
+ 
+}
+
+.header li a {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-size: 10px;
+  /* margin: 2px 1px; */
+}
+
+.header li a:hover,
+.header .menu-btn:hover {
+  background: rgb(255, 0, 0);
+  font-size: 12px;
+}
+
+/* .header .logo {
+  display: block;
+  float: left;
+  padding: 5px 30px;
+} */
+
+/* menu */
+.header .menu {
+  clear: both;
+  max-height: 0px;
+  font-size: 5px;
+  /* top:30px; */
+  margin-top: 2px;
+  transition: max-height .5s ease-out;
+  font-family: 'Montserrat', sans-serif;
+ 
+}
+/* .header .menu li button{
+  background-color: transparent;
+  border:none;
+  font-size: 22px;
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 10px;
+  margin-top: 0;
+} */
+/* menu icon */
+.header .menu-icon { 
+  cursor: pointer;  
+  float: right;
+  padding: 42px 30px;
+  position: relative;
+  user-select: none;
+}
+.header .menu-icon .navicon {
+  /* background: #a2a0a0; */
+  color: rgb(0, 0, 0);
+  display: block;
+  height: 2px;
+  position: relative;
+  width: 30px;
+}
+/* cambia color del icono  navicon del menu desplegable */
+.header .menu-icon .navicon:before,
+.header .menu-icon .navicon:after {
+  background: rgb(255, 0, 0);
+  content: '';
+  display: block;
+  height: 100%;
+  position: relative;
+  transition: all .2s ease-out;
+  width: 100%;
+}
+
+.header .menu-icon .navicon:before {
+  background: red;
+}
+
+.header .menu-icon .navicon:after {
+  top: -5px;
+}
+
+/* menu btn */
+.header .menu-btn {
+  display: none;
+}
+
+.header .menu-btn:checked ~ .menu {
+  max-height: 340px;
+  background-image: linear-gradient(#000000,rgb(143, 142, 142));
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon {
+  background: transparent;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:before {
+  transform: rotate(-45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:after {
+  transform: rotate(45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+  top: 0;
+}
+
+/* 48em = 768px */
+
+@media (min-width: 85em) {
+  /* .header h1{
+    font-size: 50px;
+  } */
+  .header{
+    margin-bottom: 10px;
+  }
+  .header ul {
+    display: flex;
+    justify-content: center;
+    
+  }
+  .header li {
+    float: left;
+  }
+  .header li a {
+    padding: 20px 30px;
+    
+  }
+  .header .menu {
+    clear: none;
+    justify-content: center;
+    /* float: right; */
+    max-height: none;
+  }
+  .header .menu-icon {
+    display: none;
+  }
+  .header .menu li button{
+    background-color: transparent;
+  }
+  .header li a:hover,
+  .header .menu-btn:hover {
+    background: rgb(255, 0, 0);
+   font-size: 12px;
+  }
+}
+
+/* fin nuevo menu hamburguesa 29-09-2020 */
+
+
+
+
+
+
+
+
+
+   
+
+   
+
+
+
+
+

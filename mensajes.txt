@@ -1,0 +1,18 @@
+ERROR AL AGREGAR
+echo '!Ha ocurrido un error en la carga a la base de datos!';
+
+ERROR AL ELIMINAR
+'¡No se ha logrado eliminar el registro de la base de datos!'
+
+ERROR ACTUALIZACION
+echo "¡Ha ocurrido un error al intentar modificar el registro seleccionado!";
+
+AGREGADO EXITOSAMENTE
+echo '¡Registro agregado exitosamente!';
+
+ELIMINADO EXITOSAMENTE
+echo "¡Registro eliminado exitosamente!";
+
+ACTUALIZACION EXITOSAMENTE
+echo "¡Registro actualizado exitosamente!";
+
