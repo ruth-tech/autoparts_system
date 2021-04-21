@@ -10,92 +10,93 @@ session_start();
         exit;
     }
 
-
-    if(isset($_SESSION['carrito'])){
-        $arreglo=$_SESSION['carrito'];
-        $encontro=false;
-        $numero=0;
-        for($i=0;$i<count($arreglo);$i++){
-            if($arreglo[$i]['Id']==$_GET['productoId']){
-                $encontro=true;//utilizo una bandera para determinar que si encontro ese id en el arreglo
-                $numero=$i;//para capturar la posicion del arreglo en donde estaba ese id
+    if(!isset($_SESSION['carrito'])){
+        if(isset($_SESSION['carrito'])){
+            $arreglo=$_SESSION['carrito'];
+            $encontro=false;
+            $numero=0;
+            for($i=0;$i<count($arreglo);$i++){
+                if($arreglo[$i]['Id']==$_GET['productoId']){
+                    $encontro=true;//utilizo una bandera para determinar que si encontro ese id en el arreglo
+                    $numero=$i;//para capturar la posicion del arreglo en donde estaba ese id
+                }
             }
-        }
-        if($encontro==true){
-            $arreglo[$numero]['Cantidad']=$arreglo[$numero]['Cantidad']+1;
-            $_SESSION['carrito']=$arreglo;
+            if($encontro==true){
+                $arreglo[$numero]['Cantidad']=$arreglo[$numero]['Cantidad']+1;
+                $_SESSION['carrito']=$arreglo;
+            }else{
+                $id="";
+                $nombre="";
+                $detalle="";
+                $precio=0;
+                $sql="SELECT * FROM productos p"
+                ." INNER JOIN `productoxcategoriaxmodelo` pcm ON pcm.`rela_producto`=p.`producto_id`"
+                ." INNER JOIN 
+                    ( SELECT producto_precio.rela_producto, MAX(producto_precio.precio_fecha) AS Fecha 
+                    FROM producto_precio GROUP BY producto_precio.rela_producto )
+                    precios2 ON p.producto_id = precios2.`rela_producto` "
+                ." INNER JOIN 
+                    ( SELECT producto_precio.`rela_producto`, producto_precio.`precio_venta`, producto_precio.precio_fecha 
+                    FROM producto_precio ) 
+                    producto_precio ON producto_precio.`precio_fecha` = precios2.Fecha 
+                    AND producto_precio.rela_producto = precios2.rela_producto" 
+                ." INNER JOIN producto_detalles pd ON p.producto_id=pd.rela_producto WHERE pcm.`productoxcategoria_id`=".$_GET['productoId'];
+                // echo $sql;
+                // exit;
+                
+                $res=mysqli_query($conexion,$sql);
+                while($f=mysqli_fetch_array($res)){
+                    $id=$f['producto_id'];
+                    $nombre=$f['producto_descripcion'];
+                    $detalle=$f['producto_detalle_descripcion'];
+                    $precio=$f['precio_venta'];
+                }
+                $datosNuevos=array('Id'=>$_GET['productoId'],
+                                    'Nombre'=>$nombre,
+                                    'Detalles'=>$detalle,
+                                    'Precio'=>$precio,
+                                    'Cantidad'=>1);
+                array_push($arreglo, $datosNuevos);
+                $_SESSION['carrito']=$arreglo;
+            }
         }else{
-            $id="";
-            $nombre="";
-            $detalle="";
-            $precio=0;
-            $sql="SELECT * FROM productos p"
-            ." INNER JOIN `productoxcategoriaxmodelo` pcm ON pcm.`rela_producto`=p.`producto_id`"
-            ." INNER JOIN 
-                ( SELECT producto_precio.rela_producto, MAX(producto_precio.precio_fecha) AS Fecha 
-                FROM producto_precio GROUP BY producto_precio.rela_producto )
-                precios2 ON p.producto_id = precios2.`rela_producto` "
-            ." INNER JOIN 
-                ( SELECT producto_precio.`rela_producto`, producto_precio.`precio_venta`, producto_precio.precio_fecha 
-                FROM producto_precio ) 
-                producto_precio ON producto_precio.`precio_fecha` = precios2.Fecha 
-                AND producto_precio.rela_producto = precios2.rela_producto" 
-            ." INNER JOIN producto_detalles pd ON p.producto_id=pd.rela_producto WHERE pcm.`productoxcategoria_id`=".$_GET['productoId'];
-            // echo $sql;
-            // exit;
-            
-            $res=mysqli_query($conexion,$sql);
-            while($f=mysqli_fetch_array($res)){
-                $id=$f['producto_id'];
-                $nombre=$f['producto_descripcion'];
-                $detalle=$f['producto_detalle_descripcion'];
-                $precio=$f['precio_venta'];
-            }
-            $datosNuevos=array('Id'=>$_GET['productoId'],
-                                'Nombre'=>$nombre,
-                                'Detalles'=>$detalle,
-                                'Precio'=>$precio,
-                                'Cantidad'=>1);
-            array_push($arreglo, $datosNuevos);
-            $_SESSION['carrito']=$arreglo;
+            if(isset($_GET['productoId'])){
+                $nombre="";
+                $detalle="";
+                $precio=0;
+                $sql="SELECT * FROM productos p"
+                ." INNER JOIN `productoxcategoriaxmodelo` pcm ON pcm.`rela_producto`=p.`producto_id`"
+                ." INNER JOIN 
+                    ( SELECT producto_precio.rela_producto, MAX(producto_precio.precio_fecha) AS Fecha 
+                    FROM producto_precio GROUP BY producto_precio.rela_producto )
+                    precios2 ON p.producto_id = precios2.`rela_producto` "
+                ." INNER JOIN 
+                    ( SELECT producto_precio.`rela_producto`, producto_precio.`precio_venta`, producto_precio.precio_fecha 
+                    FROM producto_precio ) 
+                    producto_precio ON producto_precio.`precio_fecha` = precios2.Fecha 
+                    AND producto_precio.rela_producto = precios2.rela_producto" 
+                ." INNER JOIN producto_detalles pd ON p.producto_id=pd.rela_producto WHERE pcm.`productoxcategoria_id`=".$_GET['productoId'];
+                // echo $sql;
+                // exit;
+                
+                $consulta=mysqli_query($conexion,$sql);
+                while($f=mysqli_fetch_array($consulta)){
+                    $nombre=$f['producto_descripcion'];
+                    $detalle=$f['producto_detalle_descripcion'];
+                    $precio=$f['precio_venta'];
+                }
+                $arreglo[]=array('Id'=>$_GET['productoId'],
+                            'Nombre'=>$nombre,
+                            'Detalles'=>$detalle,
+                            'Precio'=>$precio,
+                            'Cantidad'=>1);
+
+                $_SESSION['carrito']=$arreglo;
+
+            }        
         }
     }else{
-        if(isset($_GET['productoId'])){
-            $nombre="";
-            $detalle="";
-            $precio=0;
-            $sql="SELECT * FROM productos p"
-            ." INNER JOIN `productoxcategoriaxmodelo` pcm ON pcm.`rela_producto`=p.`producto_id`"
-            ." INNER JOIN 
-                ( SELECT producto_precio.rela_producto, MAX(producto_precio.precio_fecha) AS Fecha 
-                FROM producto_precio GROUP BY producto_precio.rela_producto )
-                precios2 ON p.producto_id = precios2.`rela_producto` "
-            ." INNER JOIN 
-                ( SELECT producto_precio.`rela_producto`, producto_precio.`precio_venta`, producto_precio.precio_fecha 
-                FROM producto_precio ) 
-                producto_precio ON producto_precio.`precio_fecha` = precios2.Fecha 
-                AND producto_precio.rela_producto = precios2.rela_producto" 
-            ." INNER JOIN producto_detalles pd ON p.producto_id=pd.rela_producto WHERE pcm.`productoxcategoria_id`=".$_GET['productoId'];
-            // echo $sql;
-            // exit;
-            
-            $consulta=mysqli_query($conexion,$sql);
-            while($f=mysqli_fetch_array($consulta)){
-                $nombre=$f['producto_descripcion'];
-                $detalle=$f['producto_detalle_descripcion'];
-                $precio=$f['precio_venta'];
-            }
-            $arreglo[]=array('Id'=>$_GET['productoId'],
-                        'Nombre'=>$nombre,
-                        'Detalles'=>$detalle,
-                        'Precio'=>$precio,
-                        'Cantidad'=>1);
-
-        $_SESSION['carrito']=$arreglo;
-
-        }
-
-        
+        echo '<script>alert("Funciona el alert")</script>';
     }
     
 
@@ -137,59 +138,47 @@ session_start();
                 <form>
                     <div class="form-horizontal">
                         <div class="form-group row">
-                            <div class="col-4">
-                                <label for="cliente">Cliente</label>
-                                <input type="text" id="cliente" class="form-control" placeholder="Seleccione un Cliente" onkeyup="autoCompletar()">
-                                <ul id="lista_id"></ul>
-                                <!-- <div id="sugerencias"></div> -->
+                            <div class="col-6">
+                                <label >Cliente</label>
+                                <input type="text" id="cliente" class="form-control" placeholder="Seleccione un Cliente">                 
                             </div>
-                            <div class="col-4">
-                            <label for="inputPassword4">Password</label>
-                            <input type="text" class="form-control" placeholder="Password">
-                            </div>
-                            <div class="col-4">
-                            <label for="inputEmail4">Email</label>
-                            <input type="text" class="form-control" placeholder="Email">
+                            <div class="col-6">
+                                <label >Domicilio</label>
+                                <input type="text" class="form-control" placeholder="Password">
                             </div>
                         </div>
-                    
-                    
-                    
-                    <div class="form-group">
-                        <label for="inputAddress2">Address 2</label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                        <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity">
-                        </div>
-                        <div class="form-group col-md-4">
-                        <label for="inputState">State</label>
-                        <select id="inputState" class="form-control">
-                            <option selected>Choose...</option>
-                            <option>...</option>
-                        </select>
-                        </div>
-                        <div class="form-group col-md-2">
-                        <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
+                        <div class="form group row">
+                            <div class="col-6">
+                                <label >Email</label>
+                                <input type="text" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="col-6">
+                                <label>Telefono</label>
+                                <input type="text" class="form-control" placeholder="Email">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                            Check me out
-                        </label>
-                        </div>
-                    </div>
+<br>
+                    <div class="col-12">
+                        <div align="right">
+                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#nuevoProducto">
+                            <i class="fas fa-plus"></i> Nuevo producto
+                            </button>
+                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#nuevoCliente">
+                            <i class="fas fa-user"></i> Nuevo cliente
+                            </button>
+                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal">
+                            <i class="fas fa-search"></i> Agregar productos
+                            </button>
+                            
+                        </div>	
+				    </div>
                 </form>
 
                 <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
                 <div class="card-body">                    
                     <div class="producto">
-                        <table class="table responsive">
+                        <table class="table responsive productos">
                             <thead>
                                 <th>Id</th>
                                 <th>Nombre</th>
@@ -217,12 +206,14 @@ session_start();
                     <?php
                         $total=($datos[$i]['Cantidad']*$datos[$i]['Precio'])+$total;
                             endfor;
+                            echo '<center><h2>Total: '.$total.'</h2></center>';
+                            echo '<center><a href="/autoparts_system/modulos/productos/index.php" class="btn btn-danger">Confirmar pedido</a></center>';
                         }else{
                             echo '<center><h4>El pedido esta vacio! Seleccione los productos desde el <a href="/autoparts_system/modulos/productos/index.php">Listado</a></h4></center>';
+                            
                         }
 
-                        echo '<center><h2>Total: '.$total.'</h2></center>';
-                        echo '<center><a href="/autoparts_system/modulos/productos/index.php" class="btn btn-danger">Agregar más productos</a></center>'
+                        
                     ?>
 
                 </div>

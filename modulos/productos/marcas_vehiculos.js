@@ -25,7 +25,7 @@ var listarVehiculos = function(){
             },
             {"data":"id",
                 "fnCreatedCell":function(nTd,sData,oData,iRow,iCol){
-                    $(nTd).html("<a class='btn btn-danger' href='/autoparts_system/modulos/productos/categorias_productos.php?modeloid="+oData.id+"'>Ver</a>")
+                    $(nTd).html("<a class='btn btn-danger' href='/autoparts_system/modulos/productos/modelos_vehiculos.php?marcaid="+oData.id+"'>Ver modelos</a>")
                 }
             }
         ],

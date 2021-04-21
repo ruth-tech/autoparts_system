@@ -64,7 +64,9 @@
                                     <th>ACCIONES</th>
                                 </tr>
                             </thead>
+                            <tbody>
 
+                            </tbody>
                         </table>
                         <!-- <span data-toggle="tooltip" data-placement="top" title="ZAZ"><a id="86" href="#"><img class="marcasautos" src="/autoparts_system/img/marcas/zaz.jpg" alt="Autopartes: ZAZ" width="100" height="100"></a></span> -->
                         
@@ -79,24 +81,24 @@
         <?php require "../../php/footer.php"; ?>
     </div> 
 <script>
-     // clickear la marca solicitada
-    $(document).ready(function(){
-        $(document).on('click','.marcasautos', function(e){
-            e.preventDefault();
-            var href = '/autoparts_system/modulos/productos/modelos_vehiculos.php';
-            let element = $(this)[0].parentElement;
-            let marcaid = $(element).attr('id');
+    //  // clickear la marca solicitada
+    // $(document).ready(function(){
+    //     $(document).on('click','.marcasautos', function(e){
+    //         e.preventDefault();
+    //         var href = '/autoparts_system/modulos/productos/modelos_vehiculos.php';
+    //         let element = $(this)[0].parentElement;
+    //         let marcaid = $(element).attr('id');
 
-            console.log(marcaid)
-            if(marcaid){
-                var direccion = href+'?marcaid='+marcaid;
-                window.open(direccion,"_self");
-            }
+    //         console.log(marcaid)
+    //         if(marcaid){
+    //             var direccion = href+'?marcaid='+marcaid;
+    //             window.open(direccion,"_self");
+    //         }
 
             
             
-        });
-    })
+    //     });
+    // })
 </script>
     
 </body>
