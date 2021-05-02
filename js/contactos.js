@@ -95,52 +95,43 @@ $(document).ready(function(){
 
      //Eliminar
     $(document).on('click', '.deletecontacto', function(){
-        
-        if(
-            Swal.fire({
-                
-                icon: 'info',
-                html:
-                  '¿Estas seguro que desea dar de baja este contacto?',
-                showCloseButton: true,
-                showCancelButton: true,
-                focusConfirm: false,
-                confirmButtonText:
-                  '<i class="fa fa-thumbs-up"></i> Eliminar',
-                confirmButtonColor:"#d63030",
-                cancelButtonText:
-                  '<i class="fa fa-thumbs-down"></i>Cancelar',
-              })
-        ){
-            let element = $(this)[0].parentElement.parentElement.parentElement;
-            let contactoid = $(element).attr('contactoid');
-            console.log(contactoid)
-            $.post('/autoparts_system/modulos/contactos/contacto-delete.php', {contactoid}, function(response){
-               console.log(response);
-               Swal.fire(response);
-                // if(response=="Exito"){
-                //     Swal.fire({
-                //         position: 'center',
-                //         icon: 'success',
-                //         title: '¡Dado de baja exitosamente!',
-                //         showConfirmButton: false,
-                //         timer: 2500
-                //     });
-                  
-                // }else{
-                //     Swal.fire({
-                //         position: 'center',
-                //         icon: 'error',
-                //         title: '¡Ha ocurrido un error al dar de baja el contacto seleccionado!',
-                //         showConfirmButton: true,
-                //         confirmButtonColor:"#d63030",
-                //       })
-                      
-                // }
-                listacontactos();
-            });
-
-        }
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            text:'¿Estas seguro que desea dar de baja a este contacto?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                let element = $(this)[0].parentElement.parentElement.parentElement;
+                let contactoid = $(element).attr('contactoid');
+                console.log(contactoid)
+                $.post('/autoparts_system/modulos/contactos/contacto-delete.php', {contactoid}, function(response){
+                    console.log(response);
+                    listacontactos();
+                    swalWithBootstrapButtons.fire(
+                       response
+                    )
+                })
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Se cancelo exitosamente.'
+              )
+            }
+          })
+            
     });
 
     //Editar
@@ -194,6 +185,53 @@ $(document).ready(function(){
     
    
 })//fin js
+
+var listarContactos = function(){
+    var table = $('#listado-contactos').dataTable({
+        "ajax":{
+            "method":"POST",
+            "url":"/autoparts_system/modulos/contactos/listar.php"
+        },
+        "columns":[
+            {"data":"contactoid"},
+            {"data":"descricion"},
+            {"data":"valor"},
+            {"data":"id",
+                "fnCreatedCell":function(nTd, sData, oData, iRow,iCol){
+                    $(nTd).html("<button class='cliente-edit btn btn-warning' data-toggle='modal' data-target='#editarCliente' clienteId="+oData.id+"><i class='far fa-edit'></i></button><button class='deleteCliente btn btn-danger' clienteId="+oData.id+"><i class='far fa-trash-alt'></i></button>")
+                }
+            }
+        ],
+        "language": idioma_espaniol  
+    });
+}
+
+var idioma_espaniol = {
+    "processing": "Procesando...",
+    "lengthMenu": "Mostrar _MENU_ registros",
+    "zeroRecords": "No se encontraron resultados",
+    "emptyTable": "Ningún dato disponible en esta tabla",
+    "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+    "search": "Buscar:",
+    "infoThousands": ",",
+    "loadingRecords": "Cargando...",
+    "paginate": {
+        "first": "Primero",
+        "last": "Último",
+        "next": "Siguiente",
+        "previous": "Anterior"
+    },
+    "aria": {
+        "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+        "sortDescending": ": Activar para ordenar la columna de manera descendente"
+    },
+    "buttons": {
+        "copy": "Copiar",
+        "colvis": "Visibilidad"
+    }
+}   
 
 
 
