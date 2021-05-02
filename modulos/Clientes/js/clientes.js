@@ -96,41 +96,19 @@ $(document).ready(function(){
             nacionalidad: $('#nacionalidad').val(),
             nro_cuenta: $('#nro_cuenta').val()
         }
-      console.log(dataAgregar);
-      $.ajax({
-              url: '/autoparts_system/modulos/Clientes/cliente-add.php',
-              type: 'post',
+        console.log(dataAgregar);
+        $.ajax({
+            url: '/autoparts_system/modulos/Clientes/cliente-add.php',
+            type: 'post',
             data: dataAgregar,
-          beforeSend: function (){
-              //opcional
-          //antes de enviar puedes colocar un gif cargando o un  mensaje que diga espere...
-          }
-  
+            
         }).done(function(response){
-              console.log(response);
-              Swal.fire(response);
-            //   if(response==='Exito'){
-            //     Swal.fire({
-            //         position: 'center',
-            //         icon: 'success',
-            //         title: '¡Agregado exitosamente!',
-            //         showConfirmButton: false,
-            //         timer: 2500
-            //     });
-              
-            // }else{
-            //     Swal.fire({
-            //         position: 'center',
-            //         icon: 'error',
-            //         title: '¡Ha ocurrido un error al agregar!',
-            //         showConfirmButton: true,
-            //         confirmButtonColor:"#d63030",
-            //       })
-                  
-            // }
-          listarClientes();
-          // Se resetea el formulario luego de haber enviado los datos
-          $('#agregar').trigger('reset');
+            console.log(response);
+            Swal.fire(response);
+           
+            // listarClientes();
+            // Se resetea el formulario luego de haber enviado los datos
+            $('#agregar').trigger('reset');
         }).fail(function(jqXHR, ajaxOptions, thrownError){
           //en caso de que haya un error muestras un mensaje con el error
           console.log(thrownError);
@@ -208,16 +186,17 @@ $(document).ready(function(){
                 data: postData,
                 type: 'POST',
                 success: function(response){
+                    listarClientes();
                     Swal.fire(response);
                     console.log(response);
-                    listarClientes();
+                    
                     
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
                     alert("Status: " + textStatus); alert("Error: " + errorThrown); 
                 }
             });
-            
+            listarClientes();
             $('#editarCliente').modal('hide');
 
             e.preventDefault();

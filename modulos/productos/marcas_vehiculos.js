@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function(){ 
     
     console.log('Funciona jquery marcas de vehiculos');
     listarVehiculos();

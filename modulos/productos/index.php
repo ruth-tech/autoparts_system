@@ -61,7 +61,7 @@
                                     <th>ID</th>
                                     <th>Descripcion</th>
                                     <th>imagen</th>
-                                    <th>ACCIONES</th>
+                                    <th>Seleccionar Vehiculo</th>
                                 </tr>
                             </thead>
                             <tbody>

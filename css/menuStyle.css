@@ -53,6 +53,11 @@ div.container-fluid  {
   display: flex;
 }
 
+div.top_navbar ul.menu li:nth-child(1) a {
+  background: red;
+  color: white;
+}
+
 /* top-menu a :hover  */
 .wrapper .top_navbar .top_menu ul li a:hover{
   background: #ff2b2b;

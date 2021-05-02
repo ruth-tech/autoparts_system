@@ -1,6 +1,6 @@
 <?php 
 
- require '../../php/conexion.php';
+
 
 // session_start();
 
@@ -29,13 +29,14 @@ $rs_con = mysqli_query($conexion,$sql);
                     <table class="table table-striped" id="listado-contactos">
                         <thead >
                             <tr>
+                                <th>ID</th>
                                 <th >Tipo Contacto</th>
                                 <th>Valor</th>
                                 <th>Acciones</th>
                             </tr>
 
                         </thead>
-                        <tbody id="listadoContacto">
+                        <tbody ><!-- id="listadoContacto" -->
 
                         </tbody>
                     </table>
@@ -71,30 +72,7 @@ $rs_con = mysqli_query($conexion,$sql);
                                                     };
                                                 ?>
                                             </select>
-                                            <?php
-
-                                               
-                                                // while ($row = $rs_con->fetch_assoc()) {
-                                                //     switch($row['tipo_contacto_descripcion']===){
-                                                //         case "telefono fijo":
-                                                //             print '<input type="number" min="7" max="9" placeholder="Ej: 15 4824652>';
-                                                //         break;
-                                                //         case "telefono celular":
-                                                //             print '<input type="number" min="13" max="15" placeholder="Ej: +54 370 4824652" >';
-                                                //         break;
-                                                //         case "email":
-                                                //             print '<input type="email" placeholder="Ej: xxxxxxxxxx323@xxxxx.xxx >';
-                                                //         break;
-                                                //         case "redes sociales":
-                                                //             print '<input type="text" placeholder="Ingrese ID de la red social que prefiera." >';
-                                                //         break;
-                                                //         case "otro":
-                                                //             print '<input type="text" placeholder="Ingrese valor" >';
-                                                //         break;
-                                                //     };                                   
-
-                                                // }; 
-                                            ?>
+                                            
                                         </div>
                                     </p>
                                     <p>

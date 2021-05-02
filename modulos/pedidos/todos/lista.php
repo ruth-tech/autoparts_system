@@ -18,8 +18,6 @@
 
         $sql1="SELECT p.`pedido_id`, 
             p.pedido_fecha,
-            p.pedido_subtotal,
-            p.pedido_descuento,
             p.pedido_total, 
             pe.pedido_estado_descripcion,
             c.`nombreCliente`,

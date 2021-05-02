@@ -81,7 +81,7 @@
 		
 					<input class="menu-btn" type="checkbox" id="menu-btn" />
 					<label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-					<ul class="menu flexbox">
+					<ul class="menu">
 						<li ><a  href="\autoparts_system\dashboard.php"><i class='fas fa-home'></i>HOME</a></li>
 						<?php foreach ($_SESSION['modulos'] as $modulo): ?>
 						<li ><a  href="/autoparts_system/modulos/<?php  echo $modulo['directorio']; ?>/index.php">
