@@ -1,8 +1,4 @@
 <?php $personaid = $_GET['personaId'];?>
-
-
-    
-
     
     <input type="hidden" id="persoid" personaid="<?php  echo $personaid; ?>">
     <div class="card-body-personales text-danger">
@@ -16,8 +12,7 @@
                 </tr>
 
             </thead>
-            <tbody ><!---id="listadodatosper"-->
-
+            <tbody><!---id="listadodatosper"-->
             </tbody>
         </table>
 
