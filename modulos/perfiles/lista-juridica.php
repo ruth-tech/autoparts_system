@@ -13,7 +13,12 @@
    
     $json = array();   
 
-    $sql = "SELECT * FROM personas"
+    $sql = "SELECT
+                personas.persona_id AS id,
+                personas_juridicas.cuit AS cuit,
+                personas_juridicas.razon_social AS razonsocial,
+                personas_juridicas.nro_habilitacion AS habilitacion"
+    ." FROM personas"
     . " INNER JOIN personas_juridicas ON 
     personas.`persona_id` = personas_juridicas.`rela_persona`"    
     . " WHERE personas.`persona_id`=".$personaid;
@@ -21,13 +26,8 @@
 
     $rs_per = $conexion->query($sql) or die($conexion->error);
 
-    while($row = mysqli_fetch_array($rs_per)){
-        $json[]= array(   
-            "personaid" =>$personaid,             
-            "cuit" => $row['cuit'],
-            "razonsocial" => $row['razon_social'],
-            "nrohabilitacion"=> $row['nro_habilitacion']
-        );
+    while($data = mysqli_fetch_assoc($rs_per)){
+        $json["data"][]= $data;
     }
     
     $jsonstring=json_encode($json);

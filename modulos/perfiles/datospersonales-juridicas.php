@@ -6,10 +6,9 @@
     
     <input type="hidden" id="persoid" personaid="<?php  echo $personaid; ?>">
     <div class="card-body-personales text-danger">
-        <table class="table table-striped table-responsive" id="listado-head">
+        <table class="table table-striped " id="listado-personajuridica">
             <thead >
                 <tr>
-                    <th>Id</th>
                     <th>Cuit</th>
                     <th>Razon Social</th>
                     <th>Habilitacion N°</th>
@@ -17,7 +16,7 @@
                 </tr>
 
             </thead>
-            <tbody id="listadodatosper">
+            <tbody ><!---id="listadodatosper"-->
 
             </tbody>
         </table>
@@ -69,7 +68,7 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal EDITAR -->
 
-    <script src="perfil.js"></script>
+    <script src="perfil-juridico.js"></script>
                 
             
            

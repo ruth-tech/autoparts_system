@@ -4,46 +4,47 @@ $(document).ready(function(){
     console.log('Jquery is working in contactos');
     let personaid = $("#persoid").attr('personaid');
     console.log(personaid)
-    listacontactos();
+    listarContactos();
+    // listacontacto();
    
     
 
-    function listacontactos(){
-        $.ajax({
-            url:"/autoparts_system/modulos/contactos/lista.php",
-            type:"GET",
-            //datatype:"json",//SI DEFINO EL DATATYPE COMO JSON NO HACE FALTA PARSEARLO, PORQUE AJAX YA LO TOMA COMO JSON A LA RESPUESTA
-            data:{personaid:personaid},
-            success: function(response){ 
-                console.log(response)
-                let lista = JSON.parse(response);                 
-                console.log(lista);
+    // function listacontactos(){
+    //     $.ajax({
+    //         url:"/autoparts_system/modulos/contactos/lista.php",
+    //         type:"GET",
+    //         //datatype:"json",//SI DEFINO EL DATATYPE COMO JSON NO HACE FALTA PARSEARLO, PORQUE AJAX YA LO TOMA COMO JSON A LA RESPUESTA
+    //         data:{personaid:personaid},
+    //         success: function(response){ 
+    //             console.log(response)
+    //             let lista = JSON.parse(response);                 
+    //             console.log(lista);
 
-                let template = '';
+    //             let template = '';
 
-                if(lista.length !== 0){
+    //             if(lista.length !== 0){
 
-                    lista.forEach(lista =>{
-                        template +=
-                        `<tr contactoid="${lista.contactoid}">
-                            <td>${lista.tipo_contacto_descripcion}</td>
-                            <td>${lista.valor_contacto}</td>
-                            <td><span data-placement="top" title="Editar datos" data-toggle="tooltip"><button type="button" class="editar-contacto btn btn-warning"  data-toggle="modal" data-target="#editarcontacto" personaid="${lista.personaid}"><i class="far fa-edit"></i></button> 
-                            <button class="deletecontacto btn btn-danger" data-placement="top" title="Eliminar datos" data-toggle="tooltip"><i class="far fa-trash-alt"></i></button></td>               
-                        </tr>`
-                    });
-                    $("#listadoContacto").html(template);
-                }else{ 
-                    $("#listado-contactos").hide();
-                    template = '¡No se han encontrado registros de contactos activos de la persona en la base de datos, agregue al menos uno!';
-                    $(".card-body-contactos").html(template);
-                }
-            },
-            error: function(xhr,ajaxOptions,thrownError){
-                console.log(thrownError);
-            }
-        });
-    }
+    //                 lista.forEach(lista =>{
+    //                     template +=
+    //                     `<tr contactoid="${lista.contactoid}">
+    //                         <td>${lista.tipo_contacto_descripcion}</td>
+    //                         <td>${lista.valor_contacto}</td>
+    //                         <td><span data-placement="top" title="Editar datos" data-toggle="tooltip"><button type="button" class="editar-contacto btn btn-warning"  data-toggle="modal" data-target="#editarcontacto" personaid="${lista.personaid}"><i class="far fa-edit"></i></button> 
+    //                         <button class="deletecontacto btn btn-danger" data-placement="top" title="Eliminar datos" data-toggle="tooltip"><i class="far fa-trash-alt"></i></button></td>               
+    //                     </tr>`
+    //                 });
+    //                 $("#listadoContacto").html(template);
+    //             }else{ 
+    //                 $("#listado-contactos").hide();
+    //                 template = '¡No se han encontrado registros de contactos activos de la persona en la base de datos, agregue al menos uno!';
+    //                 $(".card-body-contactos").html(template);
+    //             }
+    //         },
+    //         error: function(xhr,ajaxOptions,thrownError){
+    //             console.log(thrownError);
+    //         }
+    //     });
+    // }
 
     // MDOAL AGREGAR
     $('#contacto-add').submit(function(e){
@@ -198,7 +199,7 @@ var listarContactos = function(){
             {"data":"valor"},
             {"data":"id",
                 "fnCreatedCell":function(nTd, sData, oData, iRow,iCol){
-                    $(nTd).html("<button class='cliente-edit btn btn-warning' data-toggle='modal' data-target='#editarCliente' clienteId="+oData.id+"><i class='far fa-edit'></i></button><button class='deleteCliente btn btn-danger' clienteId="+oData.id+"><i class='far fa-trash-alt'></i></button>")
+                    $(nTd).html("<button class='contacto-edit btn btn-warning' data-toggle='modal' data-target='#editarContacto' personaId="+oData.id+"><i class='far fa-edit'></i></button><button class='deleteContacto btn btn-danger' personaId="+oData.id+"><i class='far fa-trash-alt'></i></button>")
                 }
             }
         ],
