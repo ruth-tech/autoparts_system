@@ -32,13 +32,15 @@ require '../../php/conexion.php';
 <body>
 <?php require '../../php/menu.php'; ?>
 
-<div class="container-fluid">
+<div class="container">
 
 <div class="card-perfil">
 
 <nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Datos personales</a>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist" >
+        <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+            Datos personales
+        </a>
         <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
         Datos de contacto<span id="agregarcon" data-placement="top" title="Agregar contacto" data-toggle="tooltip"><button type="button"  class="btn btn-outline-success" data-toggle="modal" data-target="#agregarcontacto" personaid="<?php echo $personaid?>"><i class="fas fa-plus"></i></button>
                         </span>

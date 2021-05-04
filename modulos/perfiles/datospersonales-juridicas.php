@@ -2,9 +2,10 @@
     
     <input type="hidden" id="persoid" personaid="<?php  echo $personaid; ?>">
     <div class="card-body-personales text-danger">
-        <table class="table table-striped " id="listado-personajuridica">
+        <table class="table table-striped" id="listado-personajuridica">
             <thead >
                 <tr>
+                    <th>ID</th>
                     <th>Cuit</th>
                     <th>Razon Social</th>
                     <th>Habilitacion N°</th>
@@ -12,7 +13,7 @@
                 </tr>
 
             </thead>
-            <tbody><!---id="listadodatosper"-->
+            <tbody id="listadodatosper">
             </tbody>
         </table>
 

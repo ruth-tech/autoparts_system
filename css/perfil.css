@@ -1,18 +1,30 @@
-
+body{
+    background: #c3c3c3;
+}
+.container{
+    background: #c3c3c3;
+}
 a.nav-link{
     color: black;
-    font-size: small;
+    text-align: right;
 }
 a.nav-link button{
     align-items: center;
     margin-left: 5px;
 }
-a.nav-link:hover{
+div.nav.nav-tabs a.nav-link:hover{
     color: white;
     background: rgb(255, 65, 65);
+}
+
+div.nav.nav-tabs a.nav-link{
+    background: #ffffff;
+    color: black;
+
 }
 
 div.nav.nav-tabs a.nav-link.active{
     color: white;
     background: rgb(255, 65, 65);
 }
+

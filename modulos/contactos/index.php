@@ -30,13 +30,13 @@ $rs_con = mysqli_query($conexion,$sql);
                         <thead >
                             <tr>
                                 <th>ID</th>
-                                <th >Tipo Contacto</th>
+                                <th>Tipo Contacto</th>
                                 <th>Valor</th>
                                 <th>Acciones</th>
                             </tr>
 
                         </thead>
-                        <tbody ><!-- id="listadoContacto" -->
+                        <tbody id="listadoContacto"><!--  -->
 
                         </tbody>
                     </table>

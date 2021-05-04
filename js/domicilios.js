@@ -147,56 +147,46 @@ $(document).ready(function(){
 
     });
 
-    //ELIMINARr
-     $(document).on('click', '.deletedomicilio', function(){
-        
-        if(
-            Swal.fire({
-                
-                icon: 'info',
-                html:
-                  '¿Estas seguro que desea dar de baja este contacto?',
-                showCloseButton: true,
-                showCancelButton: true,
-                focusConfirm: false,
-                confirmButtonText:
-                  '<i class="fa fa-thumbs-up"></i> Eliminar',
-                confirmButtonColor:"#d63030",
-                cancelButtonText:
-                  '<i class="fa fa-thumbs-down"></i>Cancelar',
-              })
-        ){
-            let element = $(this)[0].parentElement.parentElement.parentElement;
-            let domicilioid = $(element).attr('domicilioid');
-            console.log(domicilioid);
-            $.post('/autoparts_system/modulos/domicilios/domicilio-delete.php', {domicilioid}, function(response){
-               console.log(response);
-               Swal.fire(response);
-                // if(response=="Exito"){
-                //     Swal.fire({
-                //         position: 'center',
-                //         icon: 'success',
-                //         title: '¡Dado de baja exitosamente!',
-                //         showConfirmButton: false,
-                //         timer: 2500
-                //     });
-                  
-                // }else{
-                //     Swal.fire({
-                //         position: 'center',
-                //         icon: 'error',
-                //         title: '¡Ha ocurrido un error al dar de baja el domicilio seleccionado!',
-                //         showConfirmButton: true,
-                //         confirmButtonColor:"#d63030",
-                //       })
-                      
-                // }
-                listadomicilios();
-            });
-
-        }
+    //Eliminar
+    $(document).on('click', '.deletedomicilio', function(){
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            text:'¿Estas seguro que desea dar de baja este domicilio?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                let element = $(this)[0].parentElement.parentElement.parentElement;
+                let domicilioid = $(element).attr('domicilioid');
+                console.log(domicilioid);
+                $.post('/autoparts_system/modulos/domicilios/domicilio-delete.php', {domicilioid}, function(response){
+                    console.log(response);
+                    listadomicilios();
+                    swalWithBootstrapButtons.fire(
+                       response
+                    )
+                })
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Se cancelo exitosamente.'
+              )
+            }
+          })
+            
     });
-
 
 
     //EDITAR

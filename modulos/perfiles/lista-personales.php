@@ -9,30 +9,30 @@
         header("location: ../../index.php?error=debe_loguearse");
         exit;
     }
-    $personaid = 54;
+    $id = $_GET['personaid'];
    
-    $json = array();   
+    $json = array();
 
-    $sql = "SELECT 
-                personas.persona_id AS id,
-                CONCAT(personas_fisicas.apellidos_persona,', ', personas_fisicas.nombres_persona) AS persona,
-                persona_sexo.descripcion_sexo AS sexo,
-                personas_fisicas.persona_dni AS dni,
-                personas_fisicas.persona_cuil AS cuil,
-                personas_fisicas.persona_fecha_nac AS fechanac,
-                personas_fisicas.persona_nacionalidad AS nacionalidad "
-    ." FROM personas"
+    $sql = "SELECT * FROM personas"
     . " INNER JOIN personas_fisicas ON 
     personas.`persona_id` = personas_fisicas.`rela_persona`"
     . " INNER JOIN persona_sexo ON persona_sexo.id_sexo = personas_fisicas.rela_persona_sexo"
-    . " WHERE personas.`persona_id`=".$personaid;
+    . " WHERE personas.`persona_id`=".$id;
 
     
     $rs_per = $conexion->query($sql) or die($conexion->error);
 
-    while($data = mysqli_fetch_assoc($rs_per)){
-        $json["data"][]= $data;
-    }
+    while($row = mysqli_fetch_array($rs_per)){
+        $json[]= array(
+            "personaid"=>$id,
+            "persona"=>$row['apellidos_persona'].", ".$row['nombres_persona'],
+            "sexo" => $row['descripcion_sexo'],
+            "dni" => $row['persona_dni'],
+            "cuil" => $row['persona_cuil'],
+            "fechanac" => $row['persona_fecha_nac'],
+            "nacionalidad" => $row['persona_nacionalidad']
+        );
+    } 
     
     $jsonstring = json_encode($json);
     echo $jsonstring;
