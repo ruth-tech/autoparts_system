@@ -68,7 +68,6 @@
 
                             </tbody>
                         </table>
-                        <!-- <span data-toggle="tooltip" data-placement="top" title="ZAZ"><a id="86" href="#"><img class="marcasautos" src="/autoparts_system/img/marcas/zaz.jpg" alt="Autopartes: ZAZ" width="100" height="100"></a></span> -->
                         
                     </div>
                 </div>

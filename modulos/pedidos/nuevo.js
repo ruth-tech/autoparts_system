@@ -1,62 +1,116 @@
 $(document).ready(function() {
     console.log('Nuevo JS esta funcionando');
-    // funcion autocompletar
-    function autoCompletar() {
-        var minimo_letras = 1;//minimo de letras visibles en el input
-        var palabra = $('#cliente').val();
-        // contamos el valor del input mediante una condicional
-        if(palabra.length >= minimo_letras){
+    
+    $( function() {
+        $("#consumidor").change( function() {
+            if ($(this).val() === "1") {
+                $("#id_input").prop("disabled", true);
+            } else {
+                $("#cliente").prop("disabled", false);
+                $("#domicilio").prop("disabled", false);
+                $("#email").prop("disabled", false);
+                $("#telefono").prop("disabled", false);
+                $("#nuevo_cliente").prop("disabled", false);
+            }
+        });
+    });
+
+    // AGREGAR
+    $(".agregarproductos").on('click', function(){
+        //SELECT MARCAS DE VEHICULOS
+        $("#marcavehiculo").change(function(){
+            let marcaid= $("#marcavehiculo").val();
+            console.log(marcaid);
             $.ajax({
-                url: 'ajax.php',
-                type: 'POST',
-                data: {palabra:palabra},
-                success: function(data){
-                    $('#lista_id').show();
-                    $('#lista_id').html(data);
+               data:  {marcaid},
+               url:   '/autoparts_system/modulos/pedidos/autocompletar/ajax_vehiculo.php',
+               type:  'POST',
+               success:  function (response) {  
+                   console.log(response);
+                   let datos = JSON.parse(response) ;
+                   console.log(datos)
+                   for(let i = 0; i < datos.length; i++){
+                        $("#modelos").append(`<option value="${datos[i].id}">${datos[i].modelo} - ${datos[i].anio}</option>`)
+                   }
+               },
+               error:function(){
+                   alert("error")
+               }
+           });
+        });
+        //SELECT LOCALIDADES
+        $("#provincias").change(function(){
+            let provinciaid=$("#provincias").val();
+            console.log(provinciaid);
+            $.ajax({
+               data:  {provinciaid},
+               url:   '/autoparts_system/modulos/domicilios/ajax_localidades.php',
+               type:  'POST',
+               success:  function(response) {   
+                console.log(response);             	
+                let datos = JSON.parse(response);
+                console.log(datos);
+                for(let i = 0; i < datos.length; i++){
+                 $("#localidades").append(`<option value="${datos[i].id}">${datos[i].localidad}</option>`)
                 }
+               },
+               error:function(){
+                   alert("error");
+               }
+           });
+        });
+
+        $('#agregardomi').submit(function(e){
+            
+            const postData = { 
+                personaid:$('#idpersona').val(),
+                tipodomicilio: $('#tipodomicilio').val(),
+                localidad: $('#localidades').val(),            
+                barrio: $('#barrio').val(),            
+                calle: $('#calle').val(),            
+                altura: $('#altura').val(),            
+                torre: $('#torre').val(),            
+                piso: $('#piso').val(),            
+                manzana: $('#manzana').val(),            
+                sector: $('#sector').val(),            
+                parcela: $('#parcela').val(),            
+            };
+            console.log(postData);
+            $.post('/autoparts_system/modulos/domicilios/domicilio-add.php', postData, function(response){
+                console.log(response);
+                Swal.fire(response);
+                // if(response==='Exito'){
+                //     Swal.fire('Exito al agregar');
+                   
+                // }else{
+                //     Swal.fire({
+                //         position: 'center',
+                //         icon: 'error',
+                //         title: '¡Ha ocurrido un error al intentar agregar un domicilio!',
+                //         showConfirmButton: true,
+                //         confirmButtonColor:"#d63030",
+                //       })
+                    
+                // }
+                listadomicilios();
+    
+                // Se resetea el formulario luego de haber enviado los datos
+    
+                $('#agregardomi').trigger('reset');
+                
             });
-        } else {
-            // ocultamos la lista
-            $('#lista_id').hide();
-        }
-    }
+    
+            //Con esta linea se esconde el modal de agregar
+            $('#agregardomicilio').modal('hide');
+            
+    
+    
+            //se utiliza para detener una accion por omision
+            //Llamar a preventDefault en cualquier momento durante la ejecución, cancela el evento, lo que significa que cualquier acción por defecto que deba producirse como resultado de este evento, no ocurrirá.
+            e.preventDefault();
+        });
 
-    // funcion mostrar valores
-    function set_item(opciones){
-        // cambiar el valor del foprmulario input
-        $('#cliente').val(opciones);
-        // ocultar la lista de proposiciones
-        $('#lista_id').hide();
-    }
-    // $('#key').on('keyup', function() {
-    //     var key = $(this).val();		
-    //     var dataString = 'key='+key;
-    // $.ajax({
-    //         type: "POST",
-    //         url: "ajax.php",
-    //         data: dataString,
-    //         success: function(data) {
-    //             //Escribimos las sugerencias que nos manda la consulta
-    //             $('#sugerencias').fadeIn(1000).html(data);
-    //             //Al hacer click en alguna de las sugerencias
-    //             $('.suggest-element').on('click', function(){
-    //                     //Obtenemos la id unica de la sugerencia pulsada
-    //                     var id = $(this).attr('personaId');
-    //                     //Editamos el valor del input con data de la sugerencia pulsada
-    //                     $('#key').val($('#'+id).attr('data'));
-    //                     //Hacemos desaparecer el resto de sugerencias
-    //                     $('#sugerencias').fadeOut(1000);
-    //                     $('body').on('click', function() {
-    //                         $('#sugerencias').slideUp('slow');
-    //                     }); 
-    //                     alert('Has seleccionado el '+id+' '+$('#'+id).attr('data'));
-    //                     return false;
-    //             });
-                                   
-    //             // //Hacemos desaparecer el resto de sugerencias
-    //             // $('#sugerencias').fadeOut(1000);
+    });
 
-    //         }
-    //     });
-    // });
+
 }); 

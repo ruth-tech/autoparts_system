@@ -98,6 +98,10 @@ session_start();
     }else{
         echo '<script>alert("Funciona el alert")</script>';
     }
+
+    // OBTENGO DESDE LA BASE DE DATOS LAS MARCAS DE LOS VEHICULOS REGISTRADOS PARA AGREGAR UN PRODUCTO A UN PEDIDO
+    $sql = "SELECT * FROM vehiculos";
+    $rs_vehiculos=mysqli_query($conexion,$sql);
     
 
 ?>
@@ -137,37 +141,43 @@ session_start();
                 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
                 <form>
                     <div class="form-horizontal">
-                        <div class="form-group row">
+                        <br>
+                        <div class="col-6">
+                            <select name='consumidor' id='consumidor'>
+                                <option value="1" selected>Consumidor Final</option>
+                                <option value="2">Cliente</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="form-group row">                            
                             <div class="col-6">
                                 <label >Cliente</label>
-                                <input type="text" id="cliente" class="form-control" placeholder="Seleccione un Cliente">                 
+                                <input type="text" id="cliente" class="form-control" placeholder="Seleccione un Cliente" disabled>                 
                             </div>
                             <div class="col-6">
                                 <label >Domicilio</label>
-                                <input type="text" class="form-control" placeholder="Password">
+                                <input type="text" id="domicilio" class="form-control" placeholder="Password" disabled>
                             </div>
                         </div>
                         <div class="form group row">
                             <div class="col-6">
                                 <label >Email</label>
-                                <input type="text" class="form-control" placeholder="Email">
+                                <input type="text" id="email" class="form-control" placeholder="Email" disabled>
                             </div>
                             <div class="col-6">
                                 <label>Telefono</label>
-                                <input type="text" class="form-control" placeholder="Email">
+                                <input type="text" id="telefono" class="form-control" placeholder="Telefono" disabled>
                             </div>
                         </div>
                     </div>
-<br>
+                    <br>
                     <div class="col-12">
                         <div align="right">
-                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#nuevoProducto">
-                            <i class="fas fa-plus"></i> Nuevo producto
-                            </button>
-                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#nuevoCliente">
+                            
+                            <button type="button" id="nuevo_cliente" class="btn btn-outline-danger" data-toggle="modal" data-target="#nuevoCliente" disabled>
                             <i class="fas fa-user"></i> Nuevo cliente
                             </button>
-                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal">
+                            <button type="button" class="btn btn-outline-danger agregarproductos" data-toggle="modal" data-target="#agregarProductos">
                             <i class="fas fa-search"></i> Agregar productos
                             </button>
                             
@@ -219,6 +229,127 @@ session_start();
                 </div>
             </div> 
 
+            <!-- Modal AGREGAR PRODUCTOS-->
+            <div class="modal fade" id="agregarProductos" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form role="form" method="post" id="agregar">
+                                <h3>Ingrese los datos del cliente</h3>
+                                <p>
+                                <div class="form-group">
+                                    <label>Marca de vehiculo:
+                                    <select name="marcavehiculo" id="marcavehiculo" class="form-control col-10">
+                                    <option value="">--SELECCIONE--</option>
+                                        <?php 
+                                            while ($row = $rs_vehiculos->fetch_assoc()) {
+                                            echo '<option VALUE="'.$row['vehiculo_id'].'">'.$row['vehiculo_descripcion'].'</option>' ;
+                                            };
+                                        ?>
+                                    </select>
+                                    </label>
+
+                                    <label>Modelos de la marca:
+                                    <select name="modelos" id="modelos" class="form-control col-10">
+                                    <option value="" >--SELECCIONE--</option>
+                                    </select>
+                                    </label>
+
+                                    <label>Año:
+                                    <select name="anio" id="anio" class="form-control col-10">
+                                    <option value="" >--SELECCIONE--</option>
+                                    </select>
+                                    </label>
+                                </div>
+                                    
+                                </p> 
+                                <p>
+                                <div class="form-group">
+                                <label>Escriba su apellido </label>
+                                    <input type="text" id="apellido" style="text-transform:uppercase;">
+                                    </label>
+                                    
+                                </div>
+                                    
+                                </p>
+                                <p>
+                                <div class="form-group">
+                                <label>Escriba su DNI:</label>
+                                    <input type="text" id="dni" >
+                                    </label>
+                                    
+                                </div>
+                                    
+                                </p>
+                                 <p>
+                                <div class="form-group">
+                                    <label>Escriba su Cuil:</label>
+                                    <input type="text" id="cuil" >
+                                    </label>
+                                    
+                                </div>
+                                    
+                                </p>
+                                
+                                <p>
+                                <div class="form-group">
+                                <label>Genero:</label>
+                                <select name="sexo" id="sexo">
+                                    <option value="">--SELECCIONE--</option>
+                                    <?php 
+                                    while ($row = $sexo->fetch_assoc()) {
+                                    echo '<option VALUE="'.$row['id_sexo'].'">'.$row['descripcion_sexo'].'</option>'  ;
+                                    }
+
+                                    ?>
+                                </select>
+                                    
+                                </div>                            
+                                </p>
+                                
+                                
+                                <p>
+                                <div class="form-group">
+                                <label>Fecha de Nacimiento</label>
+                                    <input type="date" id="fchNac" placeholder="
+                                    AAAA/MM/DD">
+                                    </label>
+                                    
+                                </div>
+                                    
+                                </p>
+
+                                <p>
+                                <div class="form-group">
+                                <label>Nacionalidad</label>
+                                    <input type="text" id="nacionalidad" style="text-transform:uppercase;">
+                                    </label>
+                                    
+                                </div>
+                                    
+                                </p>
+                                <p>
+                                <div class="form-group">
+                                    <label>Nro. de cuenta</label>
+                                    <input type="text" id="nro_cuenta" >
+                                    </label>
+                                </div>
+                                
+                                </p> 
+                                
+                                <button type="submit" class="btn btn-danger">Agregar</button>
+
+                            </form>
+                        </div>
+
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal AGREGAR-->
+
         </div>
 
         
@@ -226,7 +357,7 @@ session_start();
 
         <?php require "../../php/footer.php"; ?>
     </div> 
-    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.js"></script> -->
     
 
 </body>

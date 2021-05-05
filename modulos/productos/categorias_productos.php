@@ -17,7 +17,8 @@
 
     $sql1 = "SELECT * FROM categoriaxmodelo"
     ." INNER JOIN categorias ON categoriaxmodelo.rela_categoria = categorias.prod_categoria_id"
-    ." WHERE rela_modelo =".$modeloid
+    ." INNER JOIN modelos_anio_vehiculos ON categoriaxmodelo.rela_modelo_anio = modelos_anio_vehiculos.modelo_anio_id"
+    ." WHERE  modelos_anio_vehiculos.modelo_anio_id=".$modeloid
     ." ORDER BY prod_categoria_descripcion ASC";
 
     // echo $sql1;
@@ -180,7 +181,7 @@
                         
                         <h5 class="card-title" ><?php echo utf8_encode($row['prod_categoria_descripcion']);?></h5>
                         <p class="card-text"  ><?php echo utf8_encode($row['texto_descripcion']);?></p>
-                        <a href="productos/index.php?categoriaid=<?php echo $row['prod_categoria_id'];?>&modeloid=<?php echo $row['rela_modelo']?>" class="btn btn-outline-danger">Ver productos</a>
+                        <a href="productos/index.php?categoriaid=<?php echo $row['prod_categoria_id'];?>&modeloid=<?php echo $row['modelo_anio_id']?>" class="btn btn-outline-danger">Ver productos</a>
                     </div>
                 </div>
                 <?php endwhile; ?>

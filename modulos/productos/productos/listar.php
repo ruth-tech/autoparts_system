@@ -17,7 +17,7 @@
     $sql = "SELECT COUNT(*) FROM productoxcategoriaxmodelo"
     ." WHERE estado = 1 "
     ." AND rela_prod_categoria =".$categoria
-    ." AND rela_modelo =".$modelo;
+    ." AND rela_modelo_anio =".$modelo;
     $rs = $conexion->query($sql) or die ($conexion->error);
     $json = array();
 

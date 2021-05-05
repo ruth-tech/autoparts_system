@@ -39,7 +39,7 @@ var listartodos = function(){
                         sev = '<span class="badge badge-primary badge-pill">'+data+'</span>';
                         break;
                     }
-                    console.log('Content of sev is : '+sev);
+                    // console.log('Content of sev is : '+sev);
                     return sev;
                 }
             },
