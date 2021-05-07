@@ -41,6 +41,13 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
+                <div class="btn-group fa-pull-right">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#nuevoModelo"><i class="fas fa-plus"></i>
+                            Agregar
+                    </button>
+                    
+
+                </div>
                 <h3>Modelos de la Marca</h3>                             
             </div>
             <div class="card-body">
@@ -51,11 +58,45 @@
                         <th>ID</th>
                         <th>Modelo</th>
                         <th>Año</th>
-                        <th>Productos</th>
+                        <th>Categorias-Productos</th>
                     </tr>
                 </thead>
 
             </table>
+
+            <!-- Modal AGREGAR -->
+            <div class="modal fade" id="nuevoModelo" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+
+                        <div class="modal-body text-dark">
+                            <form role="form" method="post" id="agregar">
+                                <h3>Ingrese los datos del Modelo</h3>
+                                
+                                <p>
+                                    <div class="form-group">
+                                        <label>Nombre o descripcion: </label>
+                                        <input type="text" id="descripcion" style="text-transform:uppercase">                        
+                                    </div>                                    
+                                </p>   
+                                <p>
+                                    <div class="form-group">
+                                        <label>Año: </label>
+                                        <input type="text" id="anio" style="text-transform:uppercase" placeholder="Ej: 97-99">                        
+                                    </div>                                    
+                                </p> 
+                                                          
+                                <button type="submit" id="agregar"class="btn btn-danger">Agregar</button>
+
+                            </form>
+                        </div> 
+
+                    </div><!-- /.modal-content -->
+                 </div><!--  /.modal-dialog -->
+            </div><!-- /.modal AGREGAR -->
             
                
             </div>

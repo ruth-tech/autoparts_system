@@ -14,7 +14,7 @@
     $sql = "SELECT * FROM productos"
     . " INNER JOIN producto_detalles ON productos.`producto_id`= producto_detalles.`rela_producto`"
     . " INNER JOIN productoxcategoriaxmodelo ON productos.`producto_id`= productoxcategoriaxmodelo.`rela_producto`"
-    . " WHERE productoxcategoriaxmodelo.`productoxcategoria_id`=".$productoid;
+    . " WHERE productos.producto_id=".$productoid;
 
     // echo $sql;
     // exit();

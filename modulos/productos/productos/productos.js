@@ -1,9 +1,7 @@
 $(document).ready(function(){
     console.log('Jquery en Productos.js');
 
-    let categoria = $('#categoria').attr('categoriaid');
-    let modelo = $('#modelo').attr('modeloid');
-    console.log(categoria+' - '+modelo);
+    let categoriaxmodelo = $('#categoriaxmodelo').attr('categoriaxmodelo');
     listarProductos();
     // productosList();
 
@@ -90,12 +88,10 @@ $(document).ready(function(){
     $('#agregar').submit(function(e){
         e.preventDefault();
         const dataAgregar = {
-            categoria,
-            modelo,
+            categoriaxmodelo,
             descripcion: $('#descripcion').val(),
             fabricante: $('#fabricante').val(),
             cantidad: $('#cantidad').val(),
-            precioproveedor: $('#precioproveedor').val(),
             precioventa: $('#precioventa').val(),
             detalles: $('#detalles').val()
         }
@@ -112,10 +108,12 @@ $(document).ready(function(){
             console.log(response);
             Swal.fire(response);
             listarProductos();
-            $('#agregar').trigger('reset');
+            
+
         }).fail(function(jqXHR, ajaxOptions, thrownError){
             console.log(thrownError);
         });
+        $('#agregar').trigger('reset');
         $('#nuevoProducto').modal('hide');   
 
     });
@@ -225,13 +223,13 @@ $(document).ready(function(){
 });
 
 var listarProductos = function(){
-    let categoria = $('#categoria').attr('categoriaid');
-    let modelo = $('#modelo').attr('modeloid');
+    let categoriaxmodelo = $('#categoriaxmodelo').attr('categoriaxmodelo');
+    // let modelo = $('#modelo').attr('modeloid');
     var table = $('#listado-productos').dataTable({
         "ajax":{
             "method":"POST",
             "url":"/autoparts_system/modulos/productos/productos/listar.php",
-            "data":{categoria,modelo}
+            "data":{categoriaxmodelo}
 
         },
         "columns":[
@@ -246,7 +244,7 @@ var listarProductos = function(){
             },
             {"data":"id",
                 "fnCreatedCell":function(nTd, sData, oData, iRow,iCol){
-                    $(nTd).html("<span data-placement='top' title='Agregar a pedido' data-toggle='tooltip'><a class='carrito-add btn btn-info' href='/autoparts_system/modulos/pedidos/nuevo.php?productoId="+oData.id+"'><i class='fas fa-cart-arrow-down'></i></a></span><span data-placement='top' title='Editar' data-toggle='tooltip'><button class='producto-edit btn btn-warning' data-toggle='modal' data-target='#editarProducto' productoId="+oData.id+"><i class='far fa-edit'></i></button></span><span data-placement='top' title='Eliminar' data-toggle='tooltip'><button class='deleteProducto btn btn-danger' productoId="+oData.id+"><i class='far fa-trash-alt'></i></button></span>")
+                    $(nTd).html("<span data-placement='top' title='Editar' data-toggle='tooltip'><button class='producto-edit btn btn-warning' data-toggle='modal' data-target='#editarProducto' productoId="+oData.id+"><i class='far fa-edit' productoId="+oData.id+"></i></button></span><span data-placement='top' title='Eliminar' data-toggle='tooltip'><button class='deleteProducto btn btn-danger' productoId="+oData.id+"><i class='far fa-trash-alt' productoId="+oData.id+"></i></button></span>")
                 }
             }
         ],

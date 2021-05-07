@@ -1,8 +1,39 @@
 $(document).ready(function(){
-    
+    let marca = $('#marca').attr('marcaid');
     console.log('Funciona jquery de vehiculos');
     listarModelos();
    
+    //AGREGAR
+    $('#agregar').submit(function(e){
+        e.preventDefault();
+        const dataAgregar = {
+            marca,
+            descripcion: $('#descripcion').val(),
+            anio: $('#anio').val()
+        }
+        console.log(dataAgregar);
+        $.ajax({
+            url: '/autoparts_system/modulos/productos/modelos_abm/modelo-add.php',
+            type: 'POST',
+            data: dataAgregar,
+            beforeSend: function (){
+                //opcional
+            //antes de enviar puedes colocar un gif cargando o un  mensaje que diga espere...
+            }
+        }).done(function(response){
+            console.log(response);
+            Swal.fire(response);
+            listarModelos();
+            
+
+        }).fail(function(jqXHR, ajaxOptions, thrownError){
+            console.log(thrownError);
+        });
+        $('#agregar').trigger('reset');
+        $('#nuevoModelo').modal('hide');   
+
+    });
+
     
 
 });//fin js

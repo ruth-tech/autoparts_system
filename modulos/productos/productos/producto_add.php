@@ -11,12 +11,10 @@ if (!isset($_SESSION["logueado"])) {
 }
 
     // if(isset($_POST['nombre'])){
-        $categoria = $_POST['categoria'];
-        $modelo = $_POST['modelo'];
+        $categoriaxmodelo = $_POST['categoriaxmodelo'];
         $descripcion = strtoupper($_POST['descripcion']);
         $fabricante = strtoupper($_POST['fabricante']);
         $cantidad = $_POST['cantidad'];
-        $precioproveedor = $_POST['precioproveedor'];
         $precioventa = $_POST['precioventa'];
         $detalles = strtoupper($_POST['detalles']);
          
@@ -28,8 +26,8 @@ if (!isset($_SESSION["logueado"])) {
 
         // // GUARDO PERSONA
         $sql1 = "INSERT INTO productos"
-            . " (`producto_descripcion`,`producto_fecha_ingreso`,`producto_detalle_fabricante`,`producto_cantidad`)"
-            . " VALUES ('".$descripcion."','".$fechaIngreso."','".$fabricante."',".$cantidad.")";
+            . " (`producto_descripcion`,`producto_fecha_ingreso`,`producto_detalle_fabricante`)"
+            . " VALUES ('".$descripcion."','".$fechaIngreso."','".$fabricante."')";
     
         
         // si no puedo guardar, redirecciono al listado con mensaje de error
@@ -45,8 +43,8 @@ if (!isset($_SESSION["logueado"])) {
 
 
         $sql2 = " INSERT INTO producto_precio" 
-        . " (`rela_producto`,`precio_fecha`,`precio_proveedor`,`precio_venta`)"
-        . " VALUES (".$productoid.",'".$fechaIngreso."',".$precioproveedor.",".$precioventa.")";
+        . " (`rela_producto`,`precio_fecha`,`precio_venta`)"
+        . " VALUES (".$productoid.",'".$fechaIngreso."',".$precioventa.")";
         // echo $sql2;
         // exit;
         //$rs_persona = $conexion->query($sql2) or die($conexion->error);
@@ -73,8 +71,22 @@ if (!isset($_SESSION["logueado"])) {
             //header("location: ../listado.php?mensaje=$mensaje");
         }
 
-        $sql4 = "INSERT INTO productoxcategoriaxmodelo(`rela_producto`,`rela_prod_categoria`,`rela_modelo`,`cantidad_actual`,`estado`)"
-        . " VALUES (".$productoid.",".$categoria.",".$modelo.",".$cantidad.",".$estado.")";
+        $sql5 = "INSERT INTO producto_stock (`rela_producto`,`stock_fecha`,`stock`)"
+            . " VALUES (".$productoid.",'".$fechaIngreso."',".$cantidad.")";
+
+            // echo $sql3;
+            // exit;
+
+        // si no puedo guardar, redirecciono al listado con mensaje de error
+        if (!mysqli_query($conexion, $sql5)) {
+            echo '!Ha ocurrido un error en la carga a la base de datos respecto a la tabla stock de productos!';
+            exit();
+            //$mensaje = 'GUARDAR_CLIENTE_ERROR';
+            //header("location: ../listado.php?mensaje=$mensaje");
+        }
+
+        $sql4 = "INSERT INTO productoxcategoriaxmodelo(`rela_producto`,`rela_categoriaxmodelo`,`estado`)"
+        . " VALUES (".$productoid.",".$categoriaxmodelo.",".$estado.")";
 
         // echo $sql4;
         // exit;

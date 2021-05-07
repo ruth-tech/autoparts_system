@@ -9,21 +9,20 @@
     //     header("location: ../../index.php?error=debe_loguearse");
     //     exit;
     // }
-    $categoria = $_POST['categoria'];
-    $modelo = $_POST['modelo'];
+    $categoriaxmodelo = $_POST['categoriaxmodelo'];
+    // $modelo = $_POST['modelo'];
 
     // echo $categoria, $modelo;
 
     $sql = "SELECT COUNT(*) FROM productoxcategoriaxmodelo"
     ." WHERE estado = 1 "
-    ." AND rela_prod_categoria =".$categoria
-    ." AND rela_modelo_anio =".$modelo;
+    ." AND rela_categoriaxmodelo =".$categoriaxmodelo;
     $rs = $conexion->query($sql) or die ($conexion->error);
     $json = array();
 
     if($rs !== 0){
 
-        $sql1="CALL proc_productoxcategoriaxmodelo(".$categoria.",".$modelo.")";
+        $sql1="CALL proc_productoxcategoriaxmodelo(".$categoriaxmodelo.")";
         // echo $sql1;
         // exit;
 

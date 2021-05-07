@@ -10,27 +10,27 @@
       exit;
     }
 
-    $categoriaid = $_GET['categoriaid'];
-    $modeloid = $_GET['modeloid'];
+    $categoriaxmodelo = $_GET['categoriaxmodelo'];
+    // $modeloid = $_GET['modeloid'];
 
-    $sql = "SELECT * FROM categorias WHERE prod_categoria_id=".$categoriaid;
+    // $sql = "SELECT * FROM categorias WHERE prod_categoria_id=".$categoriaid;
 
-    $rs = $conexion->query($sql) or die($conexion->error);
+    // $rs = $conexion->query($sql) or die($conexion->error);
 
-    $cat = $rs->fetch_assoc();
-    // echo $cat['prod_categoria_descripcion'];
-    // exit;
+    // $cat = $rs->fetch_assoc();
+    // // echo $cat['prod_categoria_descripcion'];
+    // // exit;
 
-    // echo $categoriaid, $modeloid;
+    // // echo $categoriaid, $modeloid;
 
-    // $sql = "SELECT * FROM productoxcategoriaxmodelo"
-    // ." INNER JOIN productos ON productoxcategoriaxmodelo.rela_producto = productos.producto_id"
-    // ." INNER JOIN categorias ON productoxcategoriaxmodelo.rela_categoria = categorias.prod_categoria_id"
-    // ." INNER JOIN modelos_vehiculos ON productoxcategoriaxmodelo.rela_modelo = modelos_vehiculos.modelo_vehiculo_id"
-    // ." WHERE categorias.prod_categoria_id = ".$categoriaid
-    // ." AND modelos_vehiculos.modelo_vehiculo_id =".$modeloid;
-    // echo $sql;
-    // exit();
+    // // $sql = "SELECT * FROM productoxcategoriaxmodelo"
+    // // ." INNER JOIN productos ON productoxcategoriaxmodelo.rela_producto = productos.producto_id"
+    // // ." INNER JOIN categorias ON productoxcategoriaxmodelo.rela_categoria = categorias.prod_categoria_id"
+    // // ." INNER JOIN modelos_vehiculos ON productoxcategoriaxmodelo.rela_modelo = modelos_vehiculos.modelo_vehiculo_id"
+    // // ." WHERE categorias.prod_categoria_id = ".$categoriaid
+    // // ." AND modelos_vehiculos.modelo_vehiculo_id =".$modeloid;
+    // // echo $sql;
+    // // exit();
 
 
 
@@ -69,9 +69,9 @@
 
                 </div>
                 <h3>Productos</h3>     
-                <h5> Categoria: <?php echo $cat['prod_categoria_descripcion']?></h5> 
-                <input type="hidden" id="categoria" categoriaid="<?php echo $categoriaid?>">
-                <input type="hidden" id="modelo" modeloid="<?php echo $modeloid?>">         
+                <!-- <h5> Categoria: <?php //echo $cat['prod_categoria_descripcion']?></h5>  -->
+                <input type="hidden" id="categoriaxmodelo" categoriaxmodelo="<?php echo $categoriaxmodelo?>">
+                <!-- <input type="hidden" id="modelo" modeloid="<?php// echo $modeloid?>">          -->
             </div>
             <div class="card-body-productos text-danger ">
                 
@@ -122,12 +122,7 @@
                                         <input type="text" id="cantidad" style="text-transform:uppercase">                        
                                     </div>                                    
                                 </p> 
-                                <p>
-                                    <div class="form-group">
-                                        <label>Precio proveedor: </label>
-                                        <input type="text" id="precioproveedor" style="text-transform:uppercase">                        
-                                    </div>                                    
-                                </p> 
+                                
                                 <p>
                                     <div class="form-group">
                                         <label>Precio venta: </label>
