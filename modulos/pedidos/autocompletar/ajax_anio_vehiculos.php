@@ -2,10 +2,10 @@
 require '../../../php/conexion.php';
 
 
-$vehiculoid=$_POST['marcaid'];
+$modelo=$_POST['modelos'];
 
-$sql = "SELECT * FROM modelos_vehiculos"
-. " WHERE estado = 1 AND rela_vehiculo = ".$vehiculoid;
+$sql = "SELECT * FROM modelos_anio_vehiculos"
+. " WHERE estado = 1 AND rela_modelo_vehiculo= ".$modelo;
 // echo $sql;
 // exit();
 
@@ -13,8 +13,8 @@ $rs_modelos = $conexion->query($sql) or die($conexion->error);
 $modelos = array();
 while($row = mysqli_fetch_array($rs_modelos)){
     $modelos[]= array(
-        "id"=>$row['modelo_vehiculo_id'],
-        "anio" => $row['modelo_vehiculo_anio']
+        "id"=>$row['modelo_anio_id'],
+        "anio" => $row['modelo_anio_descripcion']
     );
 } 
 $modelosjson = json_encode($modelos);

@@ -33,43 +33,64 @@ require '../../php/conexion.php';
 <?php require '../../php/menu.php'; ?>
 
 <div class="container-fluid">
-    <div class="card-perfil">
-
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
-                    Datos personales
-                </a>
-                <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
-                    Datos de contacto
-                    <span id="agregarcon" data-placement="top" title="Agregar contacto" data-toggle="tooltip"><button type="button"  class="btn btn-outline-success" data-toggle="modal" data-target="#agregarcontacto" personaid="<?php echo $personaid?>"><i class="fas fa-plus"></i></button>
-                    </span>
-                </a>
-                <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">
-                    Datos de domicilio
-                    <span id="agregardom" data-placement="top" title="Agregar domicilio" data-toggle="tooltip"><button type="button"  class="domicilio-add btn btn-outline-success" data-toggle="modal" data-target="#agregardomicilio" personaid="<?php echo $personaid?>"><i class="fas fa-plus"></i></button>
-                    </span>
-                </a>
-            </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <div class="card">
-                    <?php require 'datospersonales.php'?>
-                </div>                
-            </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <div class="card">
-                    <?php require '../contactos/index.php'?>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <div class="card">
-                    <?php require '../domicilios/index.php'?>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h2>Perfiles</h2>
         </div>
 
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-row">
+                        <div class="col-md-2">
+                            <div class="card-header">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+                                        Datos personales
+                                    </a>
+                                    <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+                                        Datos de contacto
+                                        <span id="agregarcon" data-placement="top" title="Agregar contacto" data-toggle="tooltip"><button type="button"  class="btn btn-outline-success" data-toggle="modal" data-target="#agregarcontacto" personaid="<?php echo $personaid?>"><i class="fas fa-plus"></i></button>
+                                        </span>
+                                    </a>
+                                    <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">
+                                        Datos de domicilio
+                                        <span id="agregardom" data-placement="top" title="Agregar domicilio" data-toggle="tooltip"><button type="button"  class="domicilio-add btn btn-outline-success" data-toggle="modal" data-target="#agregardomicilio" personaid="<?php echo $personaid?>"><i class="fas fa-plus"></i></button>
+                                        </span>
+                                    </a>
+                                </div>
+                            </nav>
+
+                            </div>
+                           
+                        </div>                        
+                        <div class="col-md-10">
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div class="card">
+                                        <?php require 'datospersonales.php'?>
+                                    </div>                
+                                </div>
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div class="card">
+                                        <?php require '../contactos/index.php'?>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                    <div class="card">
+                                        <?php require '../domicilios/index.php'?>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+               
+            </div>        
+
+        </div>
     </div>
     
 

@@ -58,7 +58,7 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <?php include 'usuarios/index.php'; ?>
+                    <?php //include 'usuarios/index.php'; ?>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <?php //include 'perfiles/index.php'; ?>

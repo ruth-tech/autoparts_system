@@ -74,7 +74,7 @@ $(document).ready(function(){
                 success: function(response){
                     Swal.fire(response);
                     console.log(response);
-                    listadatosper();
+                    listadatosjur();
                     
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -91,54 +91,6 @@ $(document).ready(function(){
         
     });
 });//fin js
-// var listarDatosJuridicos = function(){
-//     let personaid = $("#persoid").attr('personaid');    
-//     var table = $('#listado-personajuridica').dataTable({
-//         "ajax":{
-//             "method":"POST",
-//             "url":"/autoparts_system/modulos/perfiles/lista-juridica.php",
-//             "data":{personaid}, 
-//             "dataSrc":"dato"           
-//         },
-//         "columns":[
-//             {"dato":"cuit"},
-//             {"dato":"razonsocial"},
-//             {"dato":"habilitacion"},
-//             {"dato":"id",
-//                 "fnCreatedCell":function(nTd, sData, oData, iRow,iCol){
-//                     $(nTd).html("<button class='editar-juridico btn btn-warning' data-toggle='modal' data-target='#editardatosperjuridicas' personaId="+oData.id+"><i class='far fa-edit'></i></button>")
-//                 }
-//             }
-//         ],
-//         "language": idioma_espaniol  
-//     });
-// }
-
-// var idioma_espaniol = {
-//     "processing": "Procesando...",
-//     "lengthMenu": "Mostrar _MENU_ registros",
-//     "zeroRecords": "No se encontraron resultados",
-//     "emptyTable": "Ningún dato disponible en esta tabla",
-//     "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-//     "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-//     "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-//     "search": "Buscar:",
-//     "infoThousands": ",",
-//     "loadingRecords": "Cargando...",
-//     "paginate": {
-//         "first": "Primero",
-//         "last": "Último",
-//         "next": "Siguiente",
-//         "previous": "Anterior"
-//     },
-//     "aria": {
-//         "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-//         "sortDescending": ": Activar para ordenar la columna de manera descendente"
-//     },
-//     "buttons": {
-//         "copy": "Copiar",
-//         "colvis": "Visibilidad"
-//     }
-// }   
+  
 
   

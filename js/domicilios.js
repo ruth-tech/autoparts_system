@@ -10,7 +10,7 @@ $(document).ready(function(){
             url:"/autoparts_system/modulos/domicilios/lista.php",
             type:"GET",
             //datatype:"json",//SI DEFINO EL DATATYPE COMO JSON NO HACE FALTA PARSEARLO, PORQUE AJAX YA LO TOMA COMO JSON A LA RESPUESTA
-            data:{personaid:personaid},
+            data:{personaid},
             success: function(response){
                 console.log(response)
                 let lista = JSON.parse(response);                
@@ -95,8 +95,10 @@ $(document).ready(function(){
            });
         });
 
-        $('#agregardomi').submit(function(e){
-            
+        $('#agregardomi').submit(function(e){  
+            //se utiliza para detener una accion por omision
+            //Llamar a preventDefault en cualquier momento durante la ejecución, cancela el evento, lo que significa que cualquier acción por defecto que deba producirse como resultado de este evento, no ocurrirá.
+            e.preventDefault();          
             const postData = { 
                 personaid:$('#idpersona').val(),
                 tipodomicilio: $('#tipodomicilio').val(),
@@ -113,36 +115,18 @@ $(document).ready(function(){
             console.log(postData);
             $.post('/autoparts_system/modulos/domicilios/domicilio-add.php', postData, function(response){
                 console.log(response);
-                Swal.fire(response);
-                // if(response==='Exito'){
-                //     Swal.fire('Exito al agregar');
-                   
-                // }else{
-                //     Swal.fire({
-                //         position: 'center',
-                //         icon: 'error',
-                //         title: '¡Ha ocurrido un error al intentar agregar un domicilio!',
-                //         showConfirmButton: true,
-                //         confirmButtonColor:"#d63030",
-                //       })
-                    
-                // }
                 listadomicilios();
-    
-                // Se resetea el formulario luego de haber enviado los datos
-    
-                $('#agregardomi').trigger('reset');
-                
-            });
-    
+                Swal.fire(response);
+               
+               
+                // listadomicilios();    
+                // Se resetea el formulario luego de haber enviado los datos    
+                $('#agregardomi').trigger('reset');                
+            });    
+            // listadomicilios();
             //Con esta linea se esconde el modal de agregar
-            $('#agregardomicilio').modal('hide');
+            $('#agregardomicilio').modal('hide');    
             
-    
-    
-            //se utiliza para detener una accion por omision
-            //Llamar a preventDefault en cualquier momento durante la ejecución, cancela el evento, lo que significa que cualquier acción por defecto que deba producirse como resultado de este evento, no ocurrirá.
-            e.preventDefault();
         });
 
     });

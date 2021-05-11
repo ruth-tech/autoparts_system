@@ -29,7 +29,7 @@ $(document).ready(function(){
                             <td>${lista.sexo}</td>
                             <td>${lista.fechanac}</td>
                             <td>${lista.nacionalidad}</td>
-                            <td><span data-placement="top" title="Editar datos" data-toggle="tooltip"><button type="button" class="editardatosper btn btn-warning" data-toggle="modal" data-target="#editardatospersonales" personaid="${lista.id}"><i class="far fa-edit"></i></button></td> 
+                            <td><span data-placement="top" title="Editar datos" data-toggle="tooltip"><button type="button" class="editardatosper btn btn-warning" data-toggle="modal" data-target="#editardatospersonales" personaid="${lista.personaid}"><i class="far fa-edit"></i></button></td> 
                                              
                         </tr>`
                     });

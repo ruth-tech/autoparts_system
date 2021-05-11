@@ -30,7 +30,7 @@ $(document).ready(function() {
                    let datos = JSON.parse(response) ;
                    console.log(datos)
                    for(let i = 0; i < datos.length; i++){
-                        $("#modelos").append(`<option value="${datos[i].id}">${datos[i].modelo} - ${datos[i].anio}</option>`)
+                        $("#modelos").append(`<option value="${datos[i].id}">${datos[i].modelo}</option>`)
                    }
                },
                error:function(){
@@ -39,19 +39,19 @@ $(document).ready(function() {
            });
         });
         //SELECT LOCALIDADES
-        $("#provincias").change(function(){
-            let provinciaid=$("#provincias").val();
-            console.log(provinciaid);
+        $("#modelos").change(function(){
+            let modelos=$("#modelos").val();
+            console.log(modelos);
             $.ajax({
-               data:  {provinciaid},
-               url:   '/autoparts_system/modulos/domicilios/ajax_localidades.php',
+               data:  {modelos},
+               url:   '/autoparts_system/modulos/pedidos/autocompletar/ajax_anio_vehiculos.php',
                type:  'POST',
                success:  function(response) {   
                 console.log(response);             	
                 let datos = JSON.parse(response);
                 console.log(datos);
                 for(let i = 0; i < datos.length; i++){
-                 $("#localidades").append(`<option value="${datos[i].id}">${datos[i].localidad}</option>`)
+                 $("#anio").append(`<option value="${datos[i].id}">${datos[i].anio}</option>`)
                 }
                },
                error:function(){
