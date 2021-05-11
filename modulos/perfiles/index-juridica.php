@@ -32,7 +32,7 @@ require '../../php/conexion.php';
 <body>
 <?php require '../../php/menu.php'; ?>
 
-<div class="container">
+<div class="container-fluid">
 
 <div class="card-perfil">
 

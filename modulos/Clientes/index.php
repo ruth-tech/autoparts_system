@@ -187,7 +187,7 @@
                         </div>
 
                         <div class="modal-body">
-                            <form role="form" method="post" id="editarCliente">
+                            <form role="form" method="post" id="editarClientee">
                             <strong><h3>Modificar datos del cliente </h3></strong>
                                     <div class="card border-danger" >
                                         <div class="card-body text-danger">

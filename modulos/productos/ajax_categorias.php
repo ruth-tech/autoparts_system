@@ -13,8 +13,8 @@ $sql1 = "SELECT
 ." FROM categoriaxmodelo"
 ." INNER JOIN categorias ON categoriaxmodelo.rela_categoria = categorias.prod_categoria_id"
 ." INNER JOIN modelos_anio_vehiculos ON categoriaxmodelo.rela_modelo_anio = modelos_anio_vehiculos.modelo_anio_id"
-. "INNER JOIN modelos_vehiculos ON modelo_anio_vehiculo.rela_modelo_vehiculo = modelo_vehiculo.modelo_vehiculo_id"
-." WHERE  modelos_vehiculos.=".$modeloid
+. " INNER JOIN modelos_vehiculos ON modelos_anio_vehiculos.rela_modelo_vehiculo = modelos_vehiculos.modelo_vehiculo_id"
+." WHERE  modelos_anio_vehiculos.modelo_anio_id=".$modeloid
 ." ORDER BY prod_categoria_descripcion ASC";
 
 // echo $sql1;

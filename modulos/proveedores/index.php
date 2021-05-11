@@ -54,7 +54,6 @@
                                 <td>Id</td>
                                 <td>Razon Social</td>
                                 <td>Cuit</td>
-                                <td>Categoria</td>
                                 <td>Web-site Oficial</td>
                                 <td>Informacion</td>
                                 <td>Acciones</td>
@@ -98,14 +97,7 @@
                                 </div>
                                     
                                 </p>
-                                <p>
-                                <div class="form-group">
-                                <label>Categoria:</label>
-                                    <input type="text" id="categoria" >
-                                    </label>
-                                    
-                                </div>                                    
-                                </p>
+                                
 
                                 <p>
                                 <div class="form-group">
@@ -173,13 +165,7 @@
                                 </div>
                                 </p>
 
-                                <p>
-                                <div class="form-group">
-                                <label>Categoria:</label>
-                                    <input type="text" id="categoriaedit" >
-                                    
-                                </div>
-                                </p>
+                                
                                 
                                 <button type="submit" class="btn btn-danger">Actualizar</button>
 

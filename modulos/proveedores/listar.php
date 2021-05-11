@@ -22,8 +22,7 @@ if($rs_con !== 0){
         personas.`persona_id` AS personaid,  
 	    proveedores.`proveedor_id` AS proveedorid,
 	    personas_juridicas.`razon_social` AS proveedor,
-	    personas_juridicas.`cuit` AS cuit, 
-	    proveedores.`categoria` AS categoria,
+	    personas_juridicas.`cuit` AS cuit,
 	    proveedores.`proveedor_website` AS website"
     ." FROM proveedores"
     ." INNER JOIN personas_juridicas ON proveedores.`rela_persona_juridica`= personas_juridicas.`persona_juridica_id`"

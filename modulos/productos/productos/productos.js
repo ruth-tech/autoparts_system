@@ -48,41 +48,82 @@ $(document).ready(function(){
     //       });
 
     // }
-    //ELIMINAR
-    $(document).on('click', '.deleteProducto', function(){
-        
-        if(
-            Swal.fire({
-                
-                icon: 'info',
-                html:
-                  '¿Está seguro que desea dar de baja este Producto?',
-                showCloseButton: true,
-                showCancelButton: true,
-                focusConfirm: false,
-                confirmButtonText:
-                  '<i class="fa fa-thumbs-up"></i> Eliminar',
-                confirmButtonColor:"#d63030",
-                cancelButtonText:
-                  '<i class="fa fa-thumbs-down"></i>Cancelar',
-              })
-        ){
+      //Eliminar
+      $(document).on('click', '.deleteProducto', function(){
+       
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            text:'¿Estas seguro que desea dar de baja a este Producto?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                let element3 = $(this)[0];
+                let productoid =$(element3).attr('productoId')
+                console.log(productoid)
+                $.post('producto-delete.php', {productoid}, function(response){
+                    console.log(response);
+                    resetearDatatables();
+                    swalWithBootstrapButtons.fire(
+                       response
+                    )
+                })
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Se cancelo exitosamente.'
+              )
+            }
+          })
             
-            let element3 = $(this)[0];
-            let productoid =$(element3).attr('productoId')
-            console.log(productoid)
-            
-            $.post('producto-delete.php', {productoid}, function(response){
-                console.log(response);
-                Swal.fire(response);
-                
-                listarProductos();
-                
-            });
-        }else{
-            listarProductos();
-        }
     });
+    //ELIMINAR
+    // $(document).on('click', '.deleteProducto', function(){
+        
+    //     if(
+    //         Swal.fire({
+                
+    //             icon: 'info',
+    //             html:
+    //               '¿Está seguro que desea dar de baja este Producto?',
+    //             showCloseButton: true,
+    //             showCancelButton: true,
+    //             focusConfirm: false,
+    //             confirmButtonText:
+    //               '<i class="fa fa-thumbs-up"></i> Eliminar',
+    //             confirmButtonColor:"#d63030",
+    //             cancelButtonText:
+    //               '<i class="fa fa-thumbs-down"></i>Cancelar',
+    //           })
+    //     ){
+            
+    //         let element3 = $(this)[0];
+    //         let productoid =$(element3).attr('productoId')
+    //         console.log(productoid)
+            
+    //         $.post('producto-delete.php', {productoid}, function(response){
+    //             console.log(response);
+    //             Swal.fire(response);
+                
+    //             listarProductos();
+                
+    //         });
+    //     }else{
+    //         listarProductos();
+    //     }
+    // });
 
     //AGREGAR
     $('#agregar').submit(function(e){
@@ -107,8 +148,8 @@ $(document).ready(function(){
         }).done(function(response){
             console.log(response);
             Swal.fire(response);
-            listarProductos();
-            
+            resetearDatatables();
+                       
 
         }).fail(function(jqXHR, ajaxOptions, thrownError){
             console.log(thrownError);
@@ -157,7 +198,7 @@ $(document).ready(function(){
                 success: function(response){
                     Swal.fire(response);
                     console.log(response);
-                    listarProductos();
+                    resetearDatatables();
                     
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -222,10 +263,17 @@ $(document).ready(function(){
 
 });
 
+var resetearDatatables = function(){
+    $('#listado-productos').dataTable().fnDestroy(); 
+            listarProductos();
+};
+
 var listarProductos = function(){
     let categoriaxmodelo = $('#categoriaxmodelo').attr('categoriaxmodelo');
+    
     // let modelo = $('#modelo').attr('modeloid');
     var table = $('#listado-productos').dataTable({
+        // retrieve:true,
         "ajax":{
             "method":"POST",
             "url":"/autoparts_system/modulos/productos/productos/listar.php",

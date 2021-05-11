@@ -3,44 +3,7 @@ console.log('Jquery funciona en EMpleados.js');
 
 $(document).ready(function(){
     listarEmpleados();
-    // listadoempleados();
-    // function listadoempleados(){
-    //     $.ajax({
-    //         url: 'lista.php',
-    //         type: 'GET',
-    //         success: function(response){
-    //             console.log(response);
-    //             let lista = JSON.parse(response);
-    //             console.log(lista);
-    //             let template = '';
-
-    //             if(lista.length !== 0){
-
-    //                 lista.forEach(lista => {
-    //                     template +=
-    //                     `<tr empleadoId="${lista.id}">
-    //                         <td>${lista.dni}</td>
-    //                         <td>${lista.empleado}</td>
-    //                         <td>${lista.cargo}</td>
-    //                         <td><button class="perfil btn btn-warning" personaid="${lista.personaid}">Ver Perfil</button></td>
-    //                         <td>
-    //                         <button class="empleado-edit btn btn-warning" data-toggle="modal" data-target="#editarEmpleado" personaid="${lista.personaid}" ><i class="far fa-edit"></i></button>
-    //                         <button class="deleteEmpleado btn btn-danger"><i class="far fa-trash-alt"></i></button>
-    //                         </td>                    
-    //                     </tr>`
-    //                 });
-    //                 $("#listadoEmpleados").html(template);
-                    
-    //             }else{
-    //                 $("#listado-empleados").hide();
-    //                 template = '¡No se han encontrado registros de Empleados activos en la base de datos, agregue al menos uno!';
-    //                 $(".card-body").html(template); 
-
-    //             }
-                
-    //         }
-    //     });
-    // }
+    
     // ACCESO AL PERFIL
     $(document).on('click', '.perfil', function () {
         var href = '/autoparts_system/modulos/perfiles/index.php';
@@ -52,7 +15,7 @@ $(document).ready(function(){
             // Save the url and perform a page load
             var direccion = href + '?personaId=' + personaId; 
             // + '&clienteId='+ clienteId;
-            window.open(direccion);
+            window.open(direccion,'_self');
             
 
         } else {
@@ -101,7 +64,7 @@ $(document).ready(function(){
               console.log(response);
               Swal.fire(response);
            
-            listarEmpleados();
+              resetearDatatables();
           // Se resetea el formulario luego de haber enviado los datos
           $('#agregar').trigger('reset');
         }).fail(function(jqXHR, ajaxOptions, thrownError){
@@ -112,56 +75,46 @@ $(document).ready(function(){
         $('#nuevoEmpleado').modal('hide');
         
     });
-
-     //Eliminar
-    $(document).on('click', '.deleteEmpleado', function(){
-        
-        if(
-            Swal.fire({
-                
-                icon: 'info',
-                html:
-                  '¿Está seguro que desea dar de baja este Empleado?',
-                showCloseButton: true,
-                showCancelButton: true,
-                focusConfirm: false,
-                confirmButtonText:
-                  '<i class="fa fa-thumbs-up"></i> Eliminar',
-                confirmButtonColor:"#d63030",
-                cancelButtonText:
-                  '<i class="fa fa-thumbs-down"></i>Cancelar',
-              })
-        ){
+//Eliminar
+$(document).on('click', '.deleteEmpleado', function(){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        text:'¿Estas seguro que desea dar de baja a este Empleado?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
             let element = $(this)[0];
             let id = $(element).attr('empleadoId');
-            
-            $.post('empleado-delete.php', {id:id}, function(response){
+            $.post('empleado-delete.php', {id}, function(response){
                 console.log(response);
-                Swal.fire(response);
-                // if(response==="Exito"){
-                //     Swal.fire({
-                //         position: 'center',
-                //         icon: 'success',
-                //         title: '¡Dado de baja exitosamente!',
-                //         showConfirmButton: false,
-                //         timer: 3000
-                //     });
-                  
-                // }else{
-                //     Swal.fire({
-                //         position: 'center',
-                //         icon: 'error',
-                //         title: '¡Ha ocurrido un error al dar de baja el empleado seleccionado!',
-                //         showConfirmButton: true,
-                //         confirmButtonColor:"#d63030",
-                //     })
-                      
-                // }
-                listarEmpleados();
                 
-            });
+                swalWithBootstrapButtons.fire(
+                   response
+                )
+                resetearDatatables();
+            })
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Se cancelo exitosamente.'
+          )
         }
-    });
+      })
+        
+});
 
     //Editar
     $(document).on('click', '.empleado-edit', function(){
@@ -196,7 +149,7 @@ console.log(id);
                 success: function(response){
                     Swal.fire(response);
                     console.log(response);
-                    listarEmpleados();
+                    resetearDatatables();
                     
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -209,6 +162,11 @@ console.log(id);
     });   
 
 });//finjs
+
+var resetearDatatables = function(){
+    $('#listado-empleados').dataTable().fnDestroy(); 
+    listarEmpleados();
+};
 
 var listarEmpleados = function(){
     var table = $('#listado-empleados').dataTable({

@@ -78,7 +78,6 @@ $(document).ready(function(){
         const dataAgregar = {
             cuit: $('#cuit').val(),
             razonsocial: $('#razonsocial').val(),
-            categoria: $('#categoria').val(),
             nrohabilitacion: $('#nrohabilitacion').val(),
             website: $('#website').val()           
         }
@@ -94,27 +93,8 @@ $(document).ready(function(){
   
         }).done(function(response){
               console.log(response);
-              Swal.fire(response);
-            //   if(response!=="Exito"){
-            //     Swal.fire({
-            //         position: 'center',
-            //         icon: 'success',
-            //         title: '¡Agregado exitosamente!',
-            //         showConfirmButton: false,
-            //         timer: 5000
-            //     });
-              
-            // }else{
-            //     Swal.fire({
-            //         position: 'center',
-            //         icon: 'error',
-            //         title: '¡Ha ocurrido un error al intentar agregar, inténtelo nuevamnete!',
-            //         showConfirmButton: true,
-            //         confirmButtonColor:"#d63030",
-            //       })
-                  
-            // }
-            listarProveedores();
+              Swal.fire(response);            
+              resetearDatatables();
           // Se resetea el formulario luego de haber enviado los datos
           $('#agregar').trigger('reset');
         }).fail(function(jqXHR, ajaxOptions, thrownError){
@@ -126,31 +106,72 @@ $(document).ready(function(){
         
     });
 
-    //Eliminar
-    $(document).on('click', '.deleteProveedor', function(){
-        
-        if(
-            Swal.fire({
-                
-                icon: 'info',
-                html:
-                  '¿Está seguro que desea dar de baja este Empleado?',
-                showCloseButton: true,
-                showCancelButton: true,
-                focusConfirm: false,
-                confirmButtonText:
-                  '<i class="fa fa-thumbs-up"></i> Eliminar',
-                confirmButtonColor:"#d63030",
-                cancelButtonText:
-                  '<i class="fa fa-thumbs-down"></i>Cancelar',
-              })
-        ){
-            let element = $(this)[0];
-            let id = $(element).attr('proveedorId');
+     //Eliminar
+     $(document).on('click', '.deleteProveedor', function(){
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            text:'¿Estas seguro que desea dar de baja a este Proveedor?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                let element = $(this)[0];
+                let id = $(element).attr('proveedorId');
+                $.post('proveedor-delete.php', {id}, function(response){
+                    console.log(response);
+                    
+                    swalWithBootstrapButtons.fire(
+                       response
+                    )
+                    resetearDatatables();
+                })
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Se cancelo exitosamente.'
+              )
+            }
+          })
             
-            $.post('proveedor-delete.php', {id:id}, function(response){
-                console.log(response);
-                Swal.fire(response);
+    });
+
+    //Eliminar
+    // $(document).on('click', '.deleteProveedor', function(){
+        
+    //     if(
+    //         Swal.fire({
+                
+    //             icon: 'info',
+    //             html:
+    //               '¿Está seguro que desea dar de baja este Empleado?',
+    //             showCloseButton: true,
+    //             showCancelButton: true,
+    //             focusConfirm: false,
+    //             confirmButtonText:
+    //               '<i class="fa fa-thumbs-up"></i> Eliminar',
+    //             confirmButtonColor:"#d63030",
+    //             cancelButtonText:
+    //               '<i class="fa fa-thumbs-down"></i>Cancelar',
+    //           })
+    //     ){
+    //         let element = $(this)[0];
+    //         let id = $(element).attr('proveedorId');
+            
+    //         $.post('proveedor-delete.php', {id:id}, function(response){
+    //             console.log(response);
+    //             Swal.fire(response);
                 // if(response!=="Exito"){
                 //     Swal.fire({
                 //         position: 'center',
@@ -170,11 +191,11 @@ $(document).ready(function(){
                 //     })
                       
                 // }
-                listarProveedores();
+    //             listarProveedores();
                 
-            });
-        }
-    });
+    //         });
+    //     }
+    // });
 
     //Editar-cliente
     $(document).on('click', '.proveedor-edit', function(){
@@ -210,7 +231,7 @@ $(document).ready(function(){
                 success: function(response){
                     Swal.fire(response);
                     console.log(response);
-                    listarProveedores();
+                    resetearDatatables();
                     
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -227,8 +248,14 @@ $(document).ready(function(){
     });
 });
 
+var resetearDatatables = function(){
+    $('#listadoProveedores').dataTable().fnDestroy(); 
+    listarProveedores();
+};
+
 var listarProveedores = function(){
     var table = $('#listadoProveedores').dataTable({
+        // retrieve: true,
         "ajax":{
             "method":"POST",
             "url":"/autoparts_system/modulos/proveedores/listar.php"
@@ -237,7 +264,6 @@ var listarProveedores = function(){
             {"data":"proveedorid"},
             {"data":"proveedor"},
             {"data":"cuit"},
-            {"data":"categoria"},
             {"data":"website"},
             {"data":"personaid",
                 "fnCreatedCell":function(nTd, sData, oData, iRow,iCol){

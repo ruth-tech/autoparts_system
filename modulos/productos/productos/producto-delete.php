@@ -13,7 +13,7 @@
     
     $productoid=$_POST['productoid'];
 
-        $query = "UPDATE productoxcategoriaxmodelo SET estado = 0 WHERE productoxcategoria_id = ". $productoid;
+        $query = "UPDATE productoxcategoriaxmodelo SET estado = 0 WHERE rela_producto = ". $productoid;
     // echo $query;
     // exit;
 

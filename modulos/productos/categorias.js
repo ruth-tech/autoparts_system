@@ -1,7 +1,39 @@
 $(document).ready(function(){
-    
+    let modelo = $('#modelo').attr('modeloid');
     console.log('Funciona jquery de categorias');
     listarCategorias();
+
+    //AGREGAR
+    // $('#asignarCategoria').submit(function(e){
+    //     e.preventDefault();
+       
+        // const dataAgregar = {
+        //     modelo,
+        //     checklista: new FormData($("#asignarCategorias")[0])
+        // }
+        // console.log(dataAgregar);
+        // $.ajax({
+        //     url: '/autoparts_system/modulos/productos/categorias_abm/categorias_asigned.php',
+        //     type: 'POST',
+        //     data: dataAgregar,
+        //     beforeSend: function (){
+        //         //opcional
+        //     //antes de enviar puedes colocar un gif cargando o un  mensaje que diga espere...
+        //     }
+        // }).done(function(response){
+        //     console.log(response);
+        //     // Swal.fire(response);
+        //     // listarCategorias();
+            
+
+        // }).fail(function(jqXHR, ajaxOptions, thrownError){
+        //     console.log(thrownError);
+        // });
+        // $('#asignarCategorias').trigger('reset');
+        // $('#agregarCategoria').modal('hide');   
+
+    // });
+
    
     
 

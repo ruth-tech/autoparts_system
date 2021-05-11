@@ -27,6 +27,56 @@
     <div class="row">
       <?php require 'php/menu.php'; ?>
     </div>
+    <!-- ----
+    <div class="row">
+                <div class="col-md-12">
+                    <div id="subida">
+                        <form action="subirData" method="post">
+                            <div class="form-row"><!-- agregar esto -->
+                                <!-- <div class="col-md-6"> -->
+                                    <!--//PRIMERA COLUMNA -->
+                                    <!--  -->
+                                          <!-- <div class="col-sm-6">
+                                          
+                                              <div class="card-body">
+                                                <canvas id="mychart" ></canvas> 
+                                              </div>
+                                          </div>
+
+                                          <div class="col-sm-6">
+                                          <div class="card">
+                                      <div class="form-group form-row"> agregar esto -->
+                                       
+                                            <!-- <div class="card-body">
+                                            <canvas id="mychart4" ></canvas> 
+                                            </div>
+                                          </div>         
+                                      
+                                          
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6"> -->
+                                    <!--//SEGUNDA COLUMNA -->
+                                    <!-- <div class="form-group form-row">agregar esto -->
+                                        <!-- <label for="" class="col-sm-4 col-form-label">Fecha de Ingreso</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control fechaIngreso" name="fechaIngreso">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-row"> <!-- agregar esto -->
+                                        <!-- <label for="" class="col-sm-4 col-form-label">Placa</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control placa" name="placa">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input id="submit-all" type="submit" value="Subir" />
+                        </form>
+                    </div>
+                </div>
+            </div> -->
     <div class="graficos ">
       <div class="row">
         <div class="col-12 col-md-12 col-lg-6 col-xl-6">

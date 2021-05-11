@@ -12,7 +12,7 @@ if (!isset($_SESSION["logueado"])) {
 
   
         $razonsocial = strtoupper($_POST['razonsocial']);
-        $categoria = strtoupper($_POST['categoria']);
+        
         $nrohabilitacion = $_POST['nrohabilitacion'];
         $cuit = $_POST['cuit'];
         $website = strtoupper($_POST['website']);
@@ -63,8 +63,8 @@ if (!isset($_SESSION["logueado"])) {
         $fecha_alta = date('Y-m-d'); 
 
         // GUARDO CLIENTE
-        $sql3 = "INSERT INTO proveedores(`rela_persona_juridica`,`proveedor_fecha_alta`,`proveedor_website`,`categoria`,`estado`)"
-            . " VALUES ($id_persona_juridica,'$fecha_alta','$website','$categoria',$estado)";
+        $sql3 = "INSERT INTO proveedores(`rela_persona_juridica`,`proveedor_fecha_alta`,`proveedor_website`,`estado`)"
+            . " VALUES ($id_persona_juridica,'$fecha_alta','$website',$estado)";
 
         // si no puedo guardar, redirecciono al listado con mensaje de error
         if (mysqli_query($conexion, $sql3)) {

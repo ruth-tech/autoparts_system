@@ -8,7 +8,10 @@
       header("location:../../index.php?error=debe_loguearse");
       exit;
     }    
-    $modeloid = $_GET['modeloid']; 
+    $modeloid = $_GET['modeloid'];
+
+    $sql = "SELECT * FROM categorias";
+    $rs_cat= mysqli_query($conexion,$sql);
 
 ?>
 
@@ -24,12 +27,16 @@
     <?php require '../../php/head-datatables-script.php';?>
     <!-- <link rel="stylesheet" href="\autoparts_system\css\marcas.css"> -->
     <script src="categorias.js"></script>
-   
 
-<?php 
+    <style>
+      .checkbox input,.checkbox label{
+        display:inline-block;
+        vertical-align:middle;	
+      }
+      .checkbox label{margin-right:20px;}
 
-?>
-    
+    </style>  
+ 
 </head>
 <body>    
 
@@ -39,6 +46,10 @@
       <div class="card">
         <div class="card-header">
           <div class="btn-group fa-pull-right">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#asignarCategoria"><i class="fas fa-sign-in-alt"></i>
+                    Asignar Categorias
+            </button>
+            |
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#agregarCategoria"><i class="fas fa-plus"></i>
                     Agregar
             </button>
@@ -61,35 +72,29 @@
           </table>
             
           <!-- Modal AGREGAR -->
-          <div class="modal fade" id="agregarCategoria" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="asignarCategoria">
+            <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
+                  <h3>Seleccione una o mas categorias que desea agregar a este modelo</h3>
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
 
                 <div class="modal-body text-dark">
-                  <form role="form" method="post" id="agregar">
-                    <h3>Seleccione una o mas categorias que desea agregar a este modelo</h3>
-
-                    <div class="checkbox">
-                      <label><input type="checkbox" name="check_lista[]" value="C++">C++</label>
-                    </div>
-                    <div class="checkbox"> 
-                      <label><input type="checkbox" name="check_lista[]" value="Java">Java</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" name="check_lista[]" value="PHP7">PHP 7</label>
-                    </div> 
-                    <div class="checkbox">
-                      <label><input type="checkbox" name="check_lista[]" value="HTML5/CSS">HTML5/CSS</label>
-                    </div> 
-                    <div class="checkbox">
-                      <label><input type="checkbox" name="check_lista[]" value="JavaScript/jQuery">JavaScript/jQuery</label>
-                    </div> 
-                                            
-                    <button type="submit" id="agregar"class="btn btn-danger">Agregar</button>
-
+                  <form  role="form" method="post" id="asignarCategoria" > <!--action="/autoparts_system/modulos\productos\categorias_abm\categorias_asigned.php"-->            
+                    <?php while ($row = $rs_cat->fetch_assoc()) : ?>      
+                        
+                    <label class="checkbox-inline" >
+                      <input type="checkbox" name="check_lista[]" value="<?php echo $row['prod_categoria_id'];?>"> <?php echo $row['prod_categoria_descripcion'];?>
+                    </label>
+                    <?php endwhile; ?> 
+                    <br>
+                     
+                    <div class="btn-group fa-pull-right">
+                      <button type="submit" class="btn btn-danger">Agregar
+                      </button>
+                    </div>                         
+                    
                   </form>
                 </div> 
 
@@ -101,5 +106,25 @@
         </div>
       </div>
       <?php require "../../php/footer.php"; ?>
+      <!-- <script>
+      $(document).ready(function(){
+         $('#submit').click(function(e){
+            // e.preventDefault();
+            var selected = '';    
+            $('#asignarCategoria input[type=checkbox]').each(function(){
+                if (this.checked) {
+                    selected += $(this).val()+', ';
+                }
+            }); 
+    
+            if (selected != '') 
+                alert('Has seleccionado: '+selected);  
+            else
+                alert('Debes seleccionar al menos una opción.');
+    
+            return false;
+        });
+      });
+      </script> -->
     </div> 
 </html>

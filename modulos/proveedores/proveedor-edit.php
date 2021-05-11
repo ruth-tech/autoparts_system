@@ -29,8 +29,7 @@
         
         'proveedorid'=>$proveedorid,       
         'fechaAlta'=>$row['proveedor_fecha_alta'],
-        'website'=>$row['proveedor_website'],
-        'categoria'=>$row['categoria']            
+        'website'=>$row['proveedor_website'],         
         );
       
         

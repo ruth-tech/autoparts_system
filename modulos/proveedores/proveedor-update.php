@@ -14,11 +14,11 @@
         $fechaalta = $_POST['fechaalta'];
         
         $website =  strtoupper($_POST['website']);
-        $categoria =  strtoupper($_POST['categoria']);
+        
 
     }
 
-    $sql1 = "UPDATE proveedores SET proveedor_fecha_alta = '".$fechaalta."', proveedor_website = '".$website."', categoria = '".$categoria
+    $sql1 = "UPDATE proveedores SET proveedor_fecha_alta = '".$fechaalta."', proveedor_website = '".$website
     ."' WHERE proveedor_id = ".$proveedorid;
 
     // echo $sql1;

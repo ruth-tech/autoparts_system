@@ -6,47 +6,7 @@ $(document).ready(function(){
 
     console.log('Jquery is working');
     listarClientes();
-    // fetchList();//llamado y ejecucuion de la funcioon que muestra el listado de clientes
-
-    // Listado
-
-    // function fetchList(){
-    //     $.ajax({
-    //         url: 'lista.php',
-    //         type: 'GET',
-    //         success: function(response){
-    //             let lista = JSON.parse(response);
-    //             console.log(lista);
-    //             let template = '';
-
-    //             if(lista.length !== 0){
-
-    //                 lista.forEach(lista => {
-    //                     template +=
-    //                     `<tr clienteId="${lista.clienteId}">
-    //                         <td>${lista.clienteId}</td>
-    //                         <td>${lista.cliente}</td>
-    //                         <td>${lista.cuil}</td>
-    //                         <td>${lista.nro_cuenta}</td>
-    //                         <td><button class="perfil btn btn-warning"><a id="perfil" href="" personaId="${lista.personaId}" style="color: black" >Ver Perfil</a></button></td>
-    //                         <td>
-    //                             <button class="cliente-edit btn btn-warning" data-toggle="modal" data-target="#editarCliente" personaId="${lista.personaId}" ><i class="far fa-edit"></i></button>
-    //                             <button class="deleteCliente btn btn-danger"><i class="far fa-trash-alt"></i></button>
-    //                         </td>                    
-    //                     </tr>`
-    //                 });
-    //                 $("#listadoClientes").html(template);
-                    
-    //             }else{
-    //                 $("#listado-head").hide();
-    //                 template = '¡No se han encontrado registros de clientes activos en la base de datos, agregue al menos uno!';
-    //                 $(".card-body").html(template); 
-
-    //             }
-                
-    //         }
-    //     });
-    // }   
+   
     // ACCESO AL PERFIL                                                                     
     $(document).on('click', '.perfil', function () {
         var hrefperfilpersonal = '/autoparts_system/modulos/perfiles/index.php'; 
@@ -106,7 +66,7 @@ $(document).ready(function(){
             console.log(response);
             Swal.fire(response);
            
-            // listarClientes();
+            resetearDatatables();
             // Se resetea el formulario luego de haber enviado los datos
             $('#agregar').trigger('reset');
         }).fail(function(jqXHR, ajaxOptions, thrownError){
@@ -119,38 +79,47 @@ $(document).ready(function(){
     });
 
     
-
-    //Eliminar
-    $(document).on('click', '.deleteCliente', function(){
-        
-        if(
-            Swal.fire({
-                
-                icon: 'info',
-                html:
-                  '¿Está seguro que desea dar de baja este Cliente?',
-                showCloseButton: true,
-                showCancelButton: true,
-                focusConfirm: false,
-                confirmButtonText:
-                  '<i class="fa fa-thumbs-up"></i> Eliminar',
-                confirmButtonColor:"#d63030",
-                cancelButtonText:
-                  '<i class="fa fa-thumbs-down"></i>Cancelar',
-              })
-        ){
-            let element = $(this)[0].parentElement.parentElement;
+//Eliminar
+$(document).on('click', '.deleteCliente', function(){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        text:'¿Estas seguro que desea dar de baja a este Cliente?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+            let element = $(this)[0];
             let id = $(element).attr('clienteId');
-            
-            $.post('cliente-delete.php', {id:id}, function(response){
+            $.post('cliente-delete.php', {id}, function(response){
                 console.log(response);
-                Swal.fire(response);
                 
-                listarClientes();
-                
-            });
+                swalWithBootstrapButtons.fire(
+                   response
+                )
+                resetearDatatables();
+            })
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Se cancelo exitosamente.'
+          )
         }
-    });
+      })
+        
+});
+
 
     //Editar-cliente
     $(document).on('click', '.cliente-edit', function(){
@@ -171,7 +140,7 @@ $(document).ready(function(){
         });
 
         $('#editarCliente').submit(function(e){
-
+            e.preventDefault();
             const postData = {
                 personaid: $('#personaidedit').val(),
                 clienteid: $('#clienteidedit').val(),
@@ -180,26 +149,26 @@ $(document).ready(function(){
                 nrocuenta: $('#nrocuentaedit').val()
     
             };
-    
             $.ajax({
                 url: 'clientes-update.php',
                 data: postData,
                 type: 'POST',
-                success: function(response){
-                    listarClientes();
+                success: function(response){                    
                     Swal.fire(response);
                     console.log(response);
-                    
+                    resetearDatatables();  
+                    // Se resetea el formulario luego de haber enviado los datos
+                    $('#editarClientee').trigger('reset');
+                       
                     
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
                     alert("Status: " + textStatus); alert("Error: " + errorThrown); 
                 }
             });
-            listarClientes();
-            $('#editarCliente').modal('hide');
+            resetearDatatables();
+            $('#editarCliente').modal('hide'); 
 
-            e.preventDefault();
         });
 
 
@@ -209,6 +178,11 @@ $(document).ready(function(){
     });
 
 });
+
+var resetearDatatables = function(){
+    $('#listado-clientes').dataTable().fnDestroy(); 
+    listarClientes();
+};
 
 var listarClientes = function(){
     var table = $('#listado-clientes').dataTable({
@@ -228,7 +202,7 @@ var listarClientes = function(){
             },
             {"data":"id",
                 "fnCreatedCell":function(nTd, sData, oData, iRow,iCol){
-                    $(nTd).html("<button class='cliente-edit btn btn-warning' data-toggle='modal' data-target='#editarCliente' clienteId="+oData.id+"><i class='far fa-edit'></i></button><button class='deleteCliente btn btn-danger' clienteId="+oData.id+"><i class='far fa-trash-alt'></i></button>")
+                    $(nTd).html("<button class='cliente-edit btn btn-warning' data-toggle='modal' data-target='#editarCliente' clienteId="+oData.id+"><i class='far fa-edit' clienteId="+oData.id+"></i></button><button class='deleteCliente btn btn-danger'  clienteId="+oData.id+"><i class='far fa-trash-alt' clienteId="+oData.id+"></i></button>")
                 }
             }
         ],

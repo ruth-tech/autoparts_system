@@ -23,7 +23,7 @@
 
 </head>
 <body>
-	<div class="container-fluid main-menu " ><!--fixed-top -->
+	<div class="container-fluid " ><!-- -->
 		<div class="row">
 			<div class="col-12">
 				<div class="wrapper">
@@ -76,8 +76,8 @@
 		<br><br><br>
 		<div class="row" >
 			<div class="col-12">
-				<div class="top-navbar">
-				<header class="header">
+				<div class="top-nav " style="position: -webkit-sticky, position: sticky;" >
+				<header class="header" >
 		
 					<input class="menu-btn" type="checkbox" id="menu-btn" />
 					<label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
