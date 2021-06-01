@@ -33,10 +33,7 @@ if (!isset($_SESSION["logueado"])) {
             <div class="card-header">
                 <div class="btn-group fa-pull-right">
                 <a type="button" class="btn btn-danger agregar" href="/autoparts_system/modulos\pedidos\nuevo.php" title="Nuevo pedido"><i class="fas fa-plus"></i>Agregar</a>
-                    <!-- <button type="button" class="agregar_pedido btn btn-danger" ><a class="text-white" href="nuevo.php"><i class="fas fa-plus"></i>
-                        Agregar</a>
-                    </button> -->
-
+                
                 </div>
                 <h3>Pedidos</h3>
             </div>

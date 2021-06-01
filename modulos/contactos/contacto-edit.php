@@ -14,7 +14,7 @@
 
     $sql = "SELECT * FROM persona_contacto "
     ." INNER JOIN tipo_contacto ON persona_contacto.rela_tipo_contacto = tipo_contacto.tipo_contacto_id"
-    ." WHERE persona_contacto_id =". $contactoid;
+    ." WHERE persona_contacto.estado = 1 AND persona_contacto_id =". $contactoid;
 
     // echo $sql;
     // exit();

@@ -10,13 +10,25 @@ if (!isset($_SESSION["logueado"])) {
 }    
 
 $modelo = $_POST['modelo'];
-$checkBox = implode(',', $_POST['checklista']);
-echo $modelo,'-',$checkBox;
-// if(!empty($_POST['checklista'])) {
-//     foreach($_POST['checklista'] as $checklista) {
-//         echo $modelo,'-',$checklista; //Mostramos el resultaso seleccionado.                
-//     }
-// }
+// $checkBox = implode(',', $_POST['checkbox']);
+// echo $modelo,'-',$checkBox;
+//CUANDO DOY DE ALTA A UNA CATEGORIA EL ESTADO ES = 1
+$estado = 1;
+if(!empty($_POST['checkbox'])) {
+  foreach($_POST['checkbox'] as $checkbox) {
+    // echo $modelo,'-',$checkbox. "\n" ;  //Mostramos el resultaso seleccionado. 
+    $insert = "INSERT INTO categoriaxmodelo(rela_modelo_anio,rela_categoria,estado) VALUES($modelo,$checkbox,$estado)";
+      if (mysqli_query($conexion, $insert)) {
+          //$mensaje = 'GUARDAR_PERSONA_FISICA_ERROR';
+          //header("location: ../listado.php?mensaje=$mensaje");
+      }else{
+        echo '!Ha ocurrido un error en la carga a la base de datos!';
+        exit();
+      }               
+  }
+}
+
+echo "Los datos se insertaron correctamente";
 
 //Continuas con tu código para guardar tus datos.
 ?>

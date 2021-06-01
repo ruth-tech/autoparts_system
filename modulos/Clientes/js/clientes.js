@@ -169,12 +169,7 @@ $(document).on('click', '.deleteCliente', function(){
             resetearDatatables();
             $('#editarCliente').modal('hide'); 
 
-        });
-
-
-    
-
-        
+        });        
     });
 
 });

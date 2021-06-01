@@ -22,9 +22,12 @@ if (!isset($_SESSION["logueado"])) {
 
         // cuando agrego nueva persona estado = 1
         $estado = 1;
-        $fechaIngreso = date('Y-m-d');
+        //
+        $fechaIngreso = date('Y-m-d h:i:s');
+        // echo $fechaIngreso;
+        // exit();
 
-        // // GUARDO PERSONA
+        // // GUARDO PRODUCTO
         $sql1 = "INSERT INTO productos"
             . " (`producto_descripcion`,`producto_fecha_ingreso`,`producto_detalle_fabricante`)"
             . " VALUES ('".$descripcion."','".$fechaIngreso."','".$fabricante."')";
@@ -94,6 +97,16 @@ if (!isset($_SESSION["logueado"])) {
         // si no puedo guardar, redirecciono al listado con mensaje de error
         if (!mysqli_query($conexion, $sql4)) {
             echo '!Ha ocurrido un error en la carga a la base de datos respecto a la tabla relacional de Producto, Categoria y Modelo de vehiculo!';
+            exit();
+            //$mensaje = 'GUARDAR_CLIENTE_ERROR';
+            //header("location: ../listado.php?mensaje=$mensaje");
+        }
+        //EJEUTO LA LLAMADA AL PROCEDIMIENTO QUE GUARDA LA EXITENCIA INICIAL
+        $sql5 = "CALL proc_existencia_productos(".$productoid.",".$cantidad.",".$precioventa.")";
+
+        // si no puedo guardar, redirecciono al listado con mensaje de error
+        if (!mysqli_query($conexion, $sql5)) {
+            echo '!Ha ocurrido un error en la carga a la base de datos respecto a la tabla de existencia!';
             exit();
             //$mensaje = 'GUARDAR_CLIENTE_ERROR';
             //header("location: ../listado.php?mensaje=$mensaje");

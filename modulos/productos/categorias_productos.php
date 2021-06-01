@@ -71,7 +71,7 @@
             <tbody></tbody>
           </table>
             
-          <!-- Modal AGREGAR -->
+          <!-- Modal ASIGNAR CATEGORIAS -->
           <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="asignarCategoria">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="modal-body text-dark">
-                  <form  role="form" method="post" id="asignarCategoria" > <!--action="/autoparts_system/modulos\productos\categorias_abm\categorias_asigned.php"-->            
+                  <form  role="form" method="post" id="asignarCategorias" > <!--action="/autoparts_system/modulos\productos\categorias_abm\categorias_asigned.php"-->            
                     <?php while ($row = $rs_cat->fetch_assoc()) : ?>      
                         
                     <label class="checkbox-inline" >

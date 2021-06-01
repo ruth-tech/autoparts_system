@@ -18,15 +18,15 @@
 
         $sql1="SELECT p.`pedido_id`, 
             p.pedido_fecha,
-            p.pedido_total, 
+            CONCAT('$ ',p.pedido_total) AS total, 
             pe.pedido_estado_descripcion,
             c.`nombreCliente`,
             e.`nombreEmpleado`" 
         ." FROM pedidos p"
         ." INNER JOIN pedidos_estados pe ON p.`rela_pedido_estado`=pe.`pedido_estado_id`"
         ." INNER JOIN vw_cliente_nombre c ON c.`idcliente`=p.`rela_cliente`"
-        ." INNER JOIN vw_empleado_nombre e ON e.`idempleado`=p.`rela_empleado`" 
-        ." GROUP BY p.`pedido_id` ";
+        ." INNER JOIN vw_empleado_nombre e ON e.`usuarioid`=p.`rela_user`"
+        ." WHERE pe.pedido_estado_descripcion = 'PENDIENTE' OR pe.pedido_estado_descripcion = 'ANULADO'";
         // echo $sql1;
         // exit;
 

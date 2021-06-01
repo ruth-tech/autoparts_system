@@ -8,6 +8,33 @@ $(document).ready(function(){
 
     // listarpendientes(); 
 
+     // ver pedido                                                                     
+     $(document).on('click', '.ver_pedido', function () {
+        var href = '/autoparts_system/modulos/pedidos/editarPedido.php'; 
+        let element = $(this)[0];                                                                 
+        let pedido = $(element).attr('pedidoid');
+        // Save information
+
+        // Check if any ID is aviable 
+        if (pedido) {
+            // Save the url and perform a page load
+            var direccion = href + '?pedidoid=' + pedido; 
+            // + '&clienteId='+ clienteId;
+            window.open(direccion,"ventana1","height=500,width=700,left=300,location=yes,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=yes,top=500" );
+            
+        } else {
+            // Error handling
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: '¡Ha ocurrido un error al intentar extraer los datos del pedido seleccionado!',
+                showConfirmButton: true,
+                confirmButtonColor:"#d63030",
+              })
+        }
+    }); 
+
+
 })
 
 var listartodos = function(){
@@ -21,23 +48,18 @@ var listartodos = function(){
             {"data":"pedido_fecha"},
             {"data":"nombreCliente"},
             {"data":"nombreEmpleado"},
-            {"data":"pedido_total"},
+            {"data":"total"},
             {"data":"pedido_estado_descripcion",
                 render: function(data, type, row){
                     sev='';
                     switch (data){
                     case 'PENDIENTE':
-                        sev = '<span class="badge badge-warning badge-pill">'+data+'</span>';
+                        sev = '<span class="badge badge-warning">'+data+'</span>';
                         break;
                     case 'ANULADO':
-                        sev = '<span class="badge badge-danger badge-pill">'+data+'</span>';
+                        sev = '<span class="badge badge-danger">'+data+'</span>';
                         break;
-                    case 'FINALIZADO':
-                        sev = '<span class="badge badge-success badge-pill">'+data+'</span>';
-                        break;
-                    case 'EN COLA':
-                        sev = '<span class="badge badge-primary badge-pill">'+data+'</span>';
-                        break;
+                    
                     }
                     // console.log('Content of sev is : '+sev);
                     return sev;
@@ -45,10 +67,11 @@ var listartodos = function(){
             },
             {"data":"pedido_id",
                 "fnCreatedCell": function(nTd, sData, oData, iRow, iCol){
-                    $(nTd).html("<a href='autoparts_system/modulos/pedidos/individuales/index.php?pedidoid="+oData.pedido_id+"'>Ver</a>")
+                    $(nTd).html("<button class='ver_pedido btn btn-info' title='Visualizar pedido' pedidoid="+oData.pedido_id+"><i class='fas fa-eye' pedidoid="+oData.pedido_id+"></i></button>  <button class='deletePedido btn btn-danger' title='Anular pedido' pedidoid="+oData.pedido_id+"><i class='fas fa-times-circle' pedidoid="+oData.pedido_id+"></i></button>")
+                    
+                    
                 }
-            },
-            {"defaultContent":"<button class='btn btn-warning'><i class='far fa-edit'></i></button> <button class='btn btn-danger'><i class='far fa-trash-alt'></i></button>"}
+            }
         ],
         "language":idioma_espaniol
     });

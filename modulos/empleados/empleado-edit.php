@@ -16,7 +16,7 @@
     . " INNER JOIN empleados ON empleados.`rela_persona_fisica`= personas_fisicas.`persona_fisica_id`"
     . " INNER JOIN usuarios ON  usuarios.`rela_persona`= personas.`persona_id`"
     . " INNER JOIN perfiles ON  perfiles.`perfil_id`= usuarios.`rela_perfil`"
-    . " WHERE empleados.`empleado_id`=".$empleadoid;
+    . " WHERE empleados.estado = 1 AND empleados.`empleado_id`=".$empleadoid;
 
     // echo $sql;
     // exit();

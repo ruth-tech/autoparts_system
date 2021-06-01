@@ -14,7 +14,7 @@
     $sql = "SELECT * FROM personas"
     . " INNER JOIN personas_fisicas ON personas.`persona_id`= personas_fisicas.`rela_persona`"
     . " INNER JOIN clientes ON clientes.`rela_persona_fisica`= personas_fisicas.`persona_fisica_id`"
-    . " WHERE clientes.`cliente_id`=".$clienteid;
+    . " WHERE clientes.estado = 1 AND clientes.`cliente_id`=".$clienteid;
 
     // echo $sql;
     // exit();

@@ -37,7 +37,7 @@ background: #c3c3c3;
 						</li>
 					</ul>
 				</nav>
-				<div class="copyright float-right">
+				<div class="copyright justify-content-end">
 					&copy;
 					<script>
 					document.write(new Date().getFullYear())

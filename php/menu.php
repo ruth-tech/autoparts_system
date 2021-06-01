@@ -42,27 +42,22 @@
 						<div class="top_menu justify-content-end">
 						
 							<ul>
-							
-								<li ><a class="btn dropdown-toggle text-center" href="#" role="button">
-								<i class="fas fa-search"></i></a></li>
-								<li ><a class="btn dropdown-toggle text-center" href="#" role="button">
-								<i class="fas fa-bell"></i>
-								</a></li>
-							
+								<li>
+									<span class="btn time">
+										<?php 
+										date_default_timezone_set('America/Argentina/Buenos_Aires');
+										$date = date('m-d-Y h:i:s a', time());
+										echo $date;
+										?>
+									</span>
+								</li>
+								
+								<li >
+									<span class="btn user"><?php echo $_SESSION['usuario'];?></span>
+								</li>
+								
 								<li > 
-									<!-- <div class="dropdown show "> -->
-										<a class="btn dropdown-toggle text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-extended="false" >
-										<i class="user-icon fas fa-user"></i>
-										</a>
-										<!--dropdown user -->
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-											<a class="dropdown-item" href="#">Mi Perfil</a>
-											<a class="dropdown-item" href="#">Action2</a>
-											<div class="dropdown-divider" role="separator"></div>
-											<a class="dropdown-item"  href="\autoparts_system\php\logout.php">Cerrar sesion</a>
-										</div>
-										
-									<!-- </div> -->
+									<a class="btn" title="Cerrar sesión" href="/autoparts_system/php\logout.php"><i class="fas fa-power-off"></i></a>
 								</li>
 							</ul>
 							

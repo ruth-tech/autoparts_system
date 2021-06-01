@@ -247,7 +247,7 @@ $(document).ready(function(){
                 success: function(response){
                     Swal.fire(response);
                     console.log(response);
-                    listarProductos();
+                    resetearDatatables();
                     
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -256,6 +256,45 @@ $(document).ready(function(){
             });
             
             $('#editarPrecio').modal('hide');
+        }); 
+
+
+    });
+
+    //ACTUALIZAR EXISTENCIA Y PRECIO
+    $(document).on('click','.add-existencia',function(e){
+        e.preventDefault();
+        let element4 = $(this)[0];
+        let productoid =$(element4).attr('productoId')
+        console.log(productoid);
+
+        $('#add_Existencia').submit(function(e){
+            e.preventDefault();
+            const postData = {
+                productoid,
+                existencia: $('#nuevaExistencia').val(),
+                precio: $('#precio_nuevo').val()
+    
+            };
+            console.log(postData);
+    
+            $.ajax({
+                url: 'addExistencia.php',
+                data: postData,
+                type: 'POST',
+                success: function(response){
+                    Swal.fire(response);
+                    console.log(response);
+                    
+                    resetearDatatables();
+                    $('#add_Existencia').trigger('reset');
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                }
+            });
+            
+            $('#addExistencia').modal('hide');
         }); 
 
 
@@ -285,6 +324,7 @@ var listarProductos = function(){
             {"data":"producto"},
             {"data":"fabricante"},
             {"data":"detalles"},
+            {"data":"existencia"},
             {"data":"precio",
                 "fnCreatedCell": function(nTd, sData, oData, iRow, iCol){
                     $(nTd).html("<span data-placement='top' title='Editar precio' data-toggle='tooltip'><button class='edit-precio text-dark' data-toggle='modal' data-target='#editarPrecio' style='border:none; background:none' productoId="+oData.id+">"+oData.precio+"</button></span>")
@@ -292,7 +332,7 @@ var listarProductos = function(){
             },
             {"data":"id",
                 "fnCreatedCell":function(nTd, sData, oData, iRow,iCol){
-                    $(nTd).html("<span data-placement='top' title='Editar' data-toggle='tooltip'><button class='producto-edit btn btn-warning' data-toggle='modal' data-target='#editarProducto' productoId="+oData.id+"><i class='far fa-edit' productoId="+oData.id+"></i></button></span><span data-placement='top' title='Eliminar' data-toggle='tooltip'><button class='deleteProducto btn btn-danger' productoId="+oData.id+"><i class='far fa-trash-alt' productoId="+oData.id+"></i></button></span>")
+                    $(nTd).html("<span data-placement='top' title='Agregar existencia' data-toggle='tooltip'><button class='add-existencia btn btn-info' data-toggle='modal' data-target='#addExistencia' productoId="+oData.id+"><i class='fas fa-plus' productoId="+oData.id+"></i></button></span><span data-placement='top' title='Editar' data-toggle='tooltip'><button class='producto-edit btn btn-warning' data-toggle='modal' data-target='#editarProducto' productoId="+oData.id+"><i class='far fa-edit' productoId="+oData.id+"></i></button></span><span data-placement='top' title='Eliminar' data-toggle='tooltip'><button class='deleteProducto btn btn-danger' productoId="+oData.id+"><i class='far fa-trash-alt' productoId="+oData.id+"></i></button></span>")
                 }
             }
         ],

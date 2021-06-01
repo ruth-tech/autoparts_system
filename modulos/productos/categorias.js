@@ -3,7 +3,38 @@ $(document).ready(function(){
     console.log('Funciona jquery de categorias');
     listarCategorias();
 
-    //AGREGAR
+    //ASIGNAR
+    $('#asignarCategoria').submit(function(e){
+        e.preventDefault();
+        // Obtener checkboxes por nombre y solo los que están marcados
+        var checkbox = $('[name^="check_lista"]:checked').map(function() {
+            return $(this).val();
+        }).get();
+        console.log(checkbox);
+        const dataAsignar = {
+            modelo,
+            checkbox
+        }
+        console.log(dataAsignar);
+        $.ajax({
+            url: '/autoparts_system/modulos/productos/categorias_abm/categorias_asigned.php',
+            type: 'POST',
+            data: dataAsignar,
+            beforeSend: function(){
+                //opcional
+            }
+        }).done(function(response){
+            console.log(response);
+            swal.fire(response)
+            resetearDatatables();
+            $('#asignarCategorias').trigger('reset');
+            $('#asignarCategoria').modal('hide');
+        }).fail(function(jqXHR, ajaxOptions, thrownError){
+            console.log(thrownError);
+        })
+        
+          
+    });
     // $('#asignarCategoria').submit(function(e){
     //     e.preventDefault();
        
@@ -38,6 +69,11 @@ $(document).ready(function(){
     
 
 });//fin js
+
+var resetearDatatables = function(){
+    $('#listado-categoriasProductos').dataTable().fnDestroy(); 
+    listarCategorias();
+};
 
 var listarCategorias = function(){
     let modelo = $('#modelo').attr('modeloid');

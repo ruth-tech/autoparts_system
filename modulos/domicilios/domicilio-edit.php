@@ -15,7 +15,7 @@
     $sql = "SELECT * FROM persona_domicilio "
     ." INNER JOIN tipo_domicilios ON persona_domicilio.rela_tipo_domicilio = tipo_domicilios.tipo_domicilio_id"
     ." INNER JOIN localidades ON localidades.id = persona_domicilio.rela_localidad"
-    ." WHERE persona_domicilio_id =". $domicilioid;
+    ." WHERE persona_domicilio.estado = 1 AND persona_domicilio_id =". $domicilioid;
 
     // echo $sql;
     // exit();

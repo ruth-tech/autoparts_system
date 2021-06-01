@@ -82,6 +82,7 @@
                             <th>Descripcion</th>
                             <th>Fabricante</th>
                             <th>Detalles</th>
+                            <th>Existencia</th>
                             <th>Precio</th>
                             <th>ACCIONES</th>
                         </tr>
@@ -243,6 +244,42 @@
                                 <button type="submit" class="btn btn-danger">Actualizar</button>
 
                             </form>
+                        </div>
+
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal EDITAR -->
+
+            <!-- Modal agregar existencia-->
+           <div class="modal fade" id="addExistencia" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form role="form" method="post" id="add_Existencia">
+                                <strong><h3>Agregar existencia del Producto </h3></strong>                          
+                                
+                                <p>
+                                <div class="form-group">
+                                <label>Nueva existencia:</label>
+                                    <input type="number" id="nuevaExistencia" placeholder="Ingrese cantidad" min="0" step="1" required>                                    
+                                </div>
+                                </p>
+                                <p>
+                                <div class="form-group">
+                                <label>Precio:</label>
+                                    <input type="number" id="precio_nuevo" placeholder="Ingrese precio" step="0.01" required>                                    
+                                </div>
+                                </p>
+
+                                <button type="submit" class="btn btn-danger">Actualizar</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            
                         </div>
 
                     </div><!-- /.modal-content -->

@@ -6,7 +6,7 @@ require '../funciones/obtener_modulos.php';
 $usuario = $_POST['txtUsuario'];
 $password = $_POST['txtPassword'];
 
-$sql = "SELECT rela_persona FROM usuarios "
+$sql = "SELECT usuario_id, rela_persona FROM usuarios "
      . "WHERE usuario_nombre='$usuario' AND usuario_password='$password'";
 
 $rs_usuario = mysqli_query($conexion, $sql);
@@ -46,8 +46,9 @@ $persona = $rs_persona->fetch_assoc();
 // Si el usuario esta activo, entonces hay que crear sesión
 session_start();
 $_SESSION['logueado'] = true;
-$_SESSION['usuario'] = $persona['apellidos_persona'] . ', ' . $persona['nombres_persona'].' , ' . $persona['persona_sexo'].' , ' . $persona['persona_dni'].' , ' . $persona['persona_cuil'].' , ' . $persona['persona_fecha_nac'].' , ' . $persona['persona_nacionalidad'];
+$_SESSION['usuario'] = $persona['apellidos_persona'].", ".$persona['nombres_persona'];
 $_SESSION['persona_id'] = $user['rela_persona'];
+$_SESSION['id'] = $user['usuario_id'];
 
 // Llamada a la función para obtener módulos.
 // Esta función develve un array con el id y descripción de los módulos.
