@@ -79,24 +79,24 @@ $(document).ready(function(){
     });
 
     
-//Eliminar
-$(document).on('click', '.deleteCliente', function(){
+    //Eliminar
+    $(document).on('click', '.deleteCliente', function(){
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
         },
         buttonsStyling: false
-      })
-      
-      swalWithBootstrapButtons.fire({
+        })
+        
+        swalWithBootstrapButtons.fire({
         text:'¿Estas seguro que desea dar de baja a este Cliente?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar',
         reverseButtons: true
-      }).then((result) => {
+        }).then((result) => {
         if (result.isConfirmed) {
             let element = $(this)[0];
             let id = $(element).attr('clienteId');
@@ -104,21 +104,21 @@ $(document).on('click', '.deleteCliente', function(){
                 console.log(response);
                 
                 swalWithBootstrapButtons.fire(
-                   response
+                    response
                 )
                 resetearDatatables();
             })
         } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
         ) {
-          swalWithBootstrapButtons.fire(
+            swalWithBootstrapButtons.fire(
             'Se cancelo exitosamente.'
-          )
+            )
         }
-      })
+        })
         
-});
+    });
 
 
     //Editar-cliente
@@ -188,7 +188,7 @@ var listarClientes = function(){
         "columns":[
             {"data":"id"},
             {"data":"cliente"},
-            {"data":"cuil"},
+            {"data":"dni"},
             {"data":"cuenta"},
             {"data":"persona_id",
                 "fnCreatedCell":function(nTd, sData, oData, iRow,iCol){

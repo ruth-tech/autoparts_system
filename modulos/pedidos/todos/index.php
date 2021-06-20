@@ -4,11 +4,13 @@
 <table class="table table-striped" id="lista-pedidos-datatables">
     <thead>
         <tr>
-            <th >ID</th>
+            <th >No.</th>
             <th>Fecha</th>
+            <th>Tipo factura</th>
+            <th>No. Factura</th>
             <th>Cliente</th>
-            <th>Vendedor</th>           
-            <th>Total</th>
+            <th>Vendedor</th> 
+            <th>Total</th>          
             <th>Estado</th>
             <th>Acciones</th>
         </tr>

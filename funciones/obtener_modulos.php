@@ -16,7 +16,7 @@ function obtener_modulos($persona_id) {
 			INNER JOIN perfiles ON perfiles.perfil_id = usuarios.rela_perfil "."
 			INNER JOIN perfilxmodulo ON perfilxmodulo.rela_perfil = perfiles.perfil_id "."
 			INNER JOIN modulos ON modulos.modulo_id = perfilxmodulo.rela_modulo"." 
-			WHERE usuarios.rela_persona = ". $persona_id;
+			WHERE usuarios.rela_persona = ". $persona_id." ORDER BY modulos.modulo_id";
 
 	$rs_modulos = mysqli_query($conexion, $sql);
 

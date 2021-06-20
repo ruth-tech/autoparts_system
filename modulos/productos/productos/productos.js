@@ -89,41 +89,7 @@ $(document).ready(function(){
           })
             
     });
-    //ELIMINAR
-    // $(document).on('click', '.deleteProducto', function(){
-        
-    //     if(
-    //         Swal.fire({
-                
-    //             icon: 'info',
-    //             html:
-    //               '¿Está seguro que desea dar de baja este Producto?',
-    //             showCloseButton: true,
-    //             showCancelButton: true,
-    //             focusConfirm: false,
-    //             confirmButtonText:
-    //               '<i class="fa fa-thumbs-up"></i> Eliminar',
-    //             confirmButtonColor:"#d63030",
-    //             cancelButtonText:
-    //               '<i class="fa fa-thumbs-down"></i>Cancelar',
-    //           })
-    //     ){
-            
-    //         let element3 = $(this)[0];
-    //         let productoid =$(element3).attr('productoId')
-    //         console.log(productoid)
-            
-    //         $.post('producto-delete.php', {productoid}, function(response){
-    //             console.log(response);
-    //             Swal.fire(response);
-                
-    //             listarProductos();
-                
-    //         });
-    //     }else{
-    //         listarProductos();
-    //     }
-    // });
+    
 
     //AGREGAR
     $('#agregar').submit(function(e){
@@ -212,54 +178,54 @@ $(document).ready(function(){
         
     });
 
-    //editar precio
-    $(document).on('click','.edit-precio',function(e){
-        e.preventDefault();
-        let element3 = $(this)[0];
-        let productoid =$(element3).attr('productoId')
-        console.log(productoid);
+    // //editar precio
+    // $(document).on('click','.edit-precio',function(e){
+    //     e.preventDefault();
+    //     let element3 = $(this)[0];
+    //     let productoid =$(element3).attr('productoId')
+    //     console.log(productoid);
 
-        $.post('precio-edit.php', {productoid}, function(response){
-            console.log(response);
+    //     $.post('precio-edit.php', {productoid}, function(response){
+    //         console.log(response);
            
-            const datos = JSON.parse(response);
+    //         const datos = JSON.parse(response);
 
-            $('#productoprecioidedit').val(datos.productoid);
-            $('#descripcionprecioedit').val(datos.descripcion);
-            $('#fabricanteprecioedit').val(datos.fabricante);
-            $('#precioproveedoredit').val(datos.precioproveedor);
-            $('#precioedit').val(datos.precio);
-        });
+    //         $('#productoprecioidedit').val(datos.productoid);
+    //         $('#descripcionprecioedit').val(datos.descripcion);
+    //         $('#fabricanteprecioedit').val(datos.fabricante);
+    //         $('#precioproveedoredit').val(datos.precioproveedor);
+    //         $('#precioedit').val(datos.precio);
+    //     });
 
-        $('#editar-precio').submit(function(e){
-            e.preventDefault();
-            const postData = {
-                productoid: $('#productoprecioidedit').val(),
-                precioproveedor: $('#precioproveedoredit').val(),
-                precio: $('#precioedit').val()
+    //     $('#editar-precio').submit(function(e){
+    //         e.preventDefault();
+    //         const postData = {
+    //             productoid: $('#productoprecioidedit').val(),
+    //             precioproveedor: $('#precioproveedoredit').val(),
+    //             precio: $('#precioedit').val()
     
-            };
+    //         };
     
-            $.ajax({
-                url: 'precio-update.php',
-                data: postData,
-                type: 'POST',
-                success: function(response){
-                    Swal.fire(response);
-                    console.log(response);
-                    resetearDatatables();
+    //         $.ajax({
+    //             url: 'precio-update.php',
+    //             data: postData,
+    //             type: 'POST',
+    //             success: function(response){
+    //                 Swal.fire(response);
+    //                 console.log(response);
+    //                 resetearDatatables();
                     
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-                }
-            });
+    //             },
+    //             error: function(XMLHttpRequest, textStatus, errorThrown) { 
+    //                 alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+    //             }
+    //         });
             
-            $('#editarPrecio').modal('hide');
-        }); 
+    //         $('#editarPrecio').modal('hide');
+    //     }); 
 
 
-    });
+    // });
 
     //ACTUALIZAR EXISTENCIA Y PRECIO
     $(document).on('click','.add-existencia',function(e){

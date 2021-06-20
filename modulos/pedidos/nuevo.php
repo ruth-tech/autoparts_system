@@ -15,6 +15,11 @@ session_start();
         
     }
 
+    $query = mysqli_query($conexion,"SELECT * FROM tipo_factura");
+    // $tipo_fac = mysqli_fetch_assoc($query);
+
+    $query1 = mysqli_query($conexion,"SELECT * FROM tipo_pago");
+    // $tipo_pago = mysqli_fetch_assoc($query1);
 ?>
 
 
@@ -23,7 +28,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo pedido</title>
+    <title>Nueva venta</title>
     <?php require '../../php/head_link.php'; ?>
     <?php require '../../php/head_script.php'; ?>
     <!-- <link rel="stylesheet" href="\autoparts_system\css\clientes.css"> -->
@@ -51,7 +56,7 @@ session_start();
 
             <div class="card" id="card-main">
                 <div class="card-header">                    
-                    <h3><i class="far fa-edit"></i>Nuevo pedido</h3>
+                    <h3><i class="far fa-edit"></i>Nueva venta</h3>
                 </div>
                 <div class="card">                    
                     <!-- +++++ -->
@@ -152,11 +157,164 @@ session_start();
                             </tfoot>
                         </table>
                         <div class="text-center">
-                            <a href="#" id="anular_pedido" style="display:none;" class="btn btn-secondary"><i class="fas fa-ban"></i> Anular pedido</a>
-                            <a href="#" id="confirma_pedido" style="display:none;" class="btn btn-danger"><i class="far fa-edit" ></i> Confirmar pedido</a>
+                            <a href="#" id="anular_pedido" style="display:none;" class="btn btn-secondary"><i class="fas fa-ban"></i> Anular venta</a>
+                            <a href="#" id="continuar" style="display:none;" class="btn btn-success" data-toggle="modal" data-target="#modal_fac"><i class="far fa-edit" ></i> Continuar venta</a>
+                            <!-- <a href="#" id="confirma_pedido" style="display:none;" class="btn btn-success"><i class="far fa-edit" ></i> Facturar venta</a> -->
                         </div>
                     </div>  
                 </div>
+
+                <!-- Modal SELECCIONAR TIPO FACTURA Y TIPO DE PAGO-->
+           <div class="modal fade" id="modal_fac" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form role="form" method="post" id="modal_fac">
+                            <strong><h3>Seleccione los datos correspondientes</h3></strong>
+                                
+                                <p>
+                                    <div class="form-group">
+                                        <label>Tipo de Factura:</label>
+                                        <select name="fact" id="fact">
+                                            <option value="">--SELECCIONE--</option>
+                                            <?php 
+                                            while ($row = $query->fetch_assoc()) {
+                                            echo '<option VALUE="'.$row['tipo_factura_id'].'">'.$row['tipo_factura_descripcion'].'</option>'  ;
+                                            }
+                                            ?>
+                                        </select>                                    
+                                    </div>                            
+                                </p>
+
+                                <p>
+                                    <div class="form-group">
+                                        <label>Tipo de Pago:</label>
+                                        <select name="pago" id="pago">
+                                            <option value="">--SELECCIONE--</option>
+                                            <?php 
+                                            while ($row = $query1->fetch_assoc()) {
+                                            echo '<option VALUE="'.$row['tipo_pago_id'].'">'.$row['tipo_pago_descripcion'].'</option>'  ;
+                                            }
+                                            ?>
+                                        </select>                                    
+                                    </div>                            
+                                </p>
+                                
+                                <a href="#" id="confirma_pedido" class="btn btn-success"><i class="far fa-edit" ></i> Facturar venta</a>
+
+                            </form>
+                        </div>
+
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal EDITAR -->
+
+            <!-- Modal AGREGAR -->
+            <div class="modal fade" id="nuevoCliente" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form role="form" method="post" id="agregar">
+                                <h3>Ingrese los datos del cliente</h3>
+                                <p>
+                                <div class="form-group">
+                                    <label>Escriba su nombre: </label>
+                                    <input type="text" id="nombre" style="text-transform:uppercase;">
+                                    </label>
+                                    
+                                </div>
+                                    
+                                </p>    
+                                <p>
+                                <div class="form-group">
+                                <label>Escriba su apellido </label>
+                                    <input type="text" id="apellido" style="text-transform:uppercase;">
+                                    </label>
+                                    
+                                </div>
+                                    
+                                </p>
+                                <p>
+                                <div class="form-group">
+                                <label>Escriba su DNI:</label>
+                                    <input type="text" id="dni" >
+                                    </label>
+                                    
+                                </div>
+                                    
+                                </p>
+                                 <p>
+                                <div class="form-group">
+                                    <label>Escriba su Cuil:</label>
+                                    <input type="text" id="cuil" >
+                                    </label>
+                                    
+                                </div>
+                                    
+                                </p>
+                                
+                                <p>
+                                <div class="form-group">
+                                <label>Genero:</label>
+                                <select name="sexo" id="sexo">
+                                    <option value="">--SELECCIONE--</option>
+                                    <?php 
+                                    while ($row = $sexo->fetch_assoc()) {
+                                    echo '<option VALUE="'.$row['id_sexo'].'">'.$row['descripcion_sexo'].'</option>'  ;
+                                    }
+
+                                    ?>
+                                </select>
+                                    
+                                </div>                            
+                                </p>
+                                
+                                
+                                <p>
+                                <div class="form-group">
+                                <label>Fecha de Nacimiento</label>
+                                    <input type="date" id="fchNac" placeholder="
+                                    AAAA/MM/DD">
+                                    </label>
+                                    
+                                </div>
+                                    
+                                </p>
+
+                                <p>
+                                <div class="form-group">
+                                <label>Nacionalidad</label>
+                                    <input type="text" id="nacionalidad" style="text-transform:uppercase;">
+                                    </label>
+                                    
+                                </div>
+                                    
+                                </p>
+                                <p>
+                                <div class="form-group">
+                                    <label>Nro. de cuenta</label>
+                                    <input type="text" id="nro_cuenta" >
+                                    </label>
+                                </div>
+                                
+                                </p> 
+                                
+                                <button type="submit" class="btn btn-danger">Agregar</button>
+
+                            </form>
+                        </div>
+
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal AGREGAR-->
  
                 
             </div> 

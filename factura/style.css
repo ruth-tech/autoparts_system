@@ -1,4 +1,4 @@
-@import url('fonts/BrixSansRegular.css');
+/* @import url('fonts/BrixSansRegular.css');
 @import url('fonts/BrixSansBlack.css');
 
 *{
@@ -105,7 +105,7 @@ p, label, span, table{
 	font-style: italic;
 	text-align: center;
 	margin-top: 20px;
-}
+} */
 .anulada{
 	position: absolute;
 	left: 50%;

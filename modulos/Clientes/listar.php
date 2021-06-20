@@ -20,7 +20,7 @@
             personas.`persona_id` AS persona_id,
             clientes.`cliente_id` AS id," 
         ."  CONCAT(personas_fisicas.apellidos_persona,' ',nombres_persona) AS cliente, 
-            personas_fisicas.`persona_cuil` AS cuil, 
+            personas_fisicas.`persona_dni` AS dni, 
             clientes.`cliente_nro_cuenta` AS cuenta"
         ." FROM clientes"
         . " INNER JOIN personas_fisicas

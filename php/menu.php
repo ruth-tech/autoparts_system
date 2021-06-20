@@ -85,11 +85,11 @@
 									print "<i class='fas fa-store'></i> ";
 								break;
 								case "pedidos":
-									print "<i class='fas fa-book-reader'></i> ";
-								break;
-								case "ventas":
 									print "<i class='fas fa-cash-register'></i> ";
 								break;
+								// case "ventas":
+								// 	print "<i class='fas fa-cash-register'></i> ";
+								// break;
 								case "productos":
 									print "<i class='fas fa-store'></i> ";
 								break;
@@ -107,6 +107,12 @@
 								break;
 								case "seguridad":
 									print "<i class='fas fa-user-lock'></i>";
+								break;
+								case "presupuestos":
+									print "<i class='fas fa-book-reader'></i> ";
+								break;
+								case "caja":
+									print "<i class='fas fa-money-check-alt'></i>";
 								break;
 							};?>
 							<?php echo utf8_encode($modulo['descripcion']); ?> <span class="sr-only"></span></a>

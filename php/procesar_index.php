@@ -50,6 +50,9 @@ $_SESSION['usuario'] = $persona['apellidos_persona'].", ".$persona['nombres_pers
 $_SESSION['persona_id'] = $user['rela_persona'];
 $_SESSION['id'] = $user['usuario_id'];
 
+$sql = "INSERT INTO historial_usuarios(rela_usuario) VALUES(".$_SESSION['id'].")";
+
+$rs_session = mysqli_query($conexion, $sql);
 // Llamada a la función para obtener módulos.
 // Esta función develve un array con el id y descripción de los módulos.
 $modulos = obtener_modulos($user['rela_persona']);

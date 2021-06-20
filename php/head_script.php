@@ -9,7 +9,7 @@
  <script src="\autoparts_system\bootstrap-4.5.2\js\bootstrap.min.js"></script>
 
   <!-- ACCESO A BOOTSTRAP JS DESDE EL ORDENADOR -->
-  <script src="\autoparts_system\bootstrap-5.0.1\js\bootstrap.min.js"></script>
+  <!-- <script src="\autoparts_system\bootstrap-5.0.1\js\bootstrap.min.js"></script> -->
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
  

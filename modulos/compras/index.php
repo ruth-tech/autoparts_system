@@ -26,9 +26,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compras</title>
     <?php require '../../php/head_link.php'; ?>
+    <?php require '../../php/head-datatables-link.php';?> 
     <?php require '../../php/head_script.php'; ?>
-    <!-- <link rel="stylesheet" href="\autoparts_system\css\empleados.css"> -->
-    <!-- <script src="js/seguridad.js"></script> -->
+    <?php require '../../php/head-datatables-script.php';?>
+    <script src="js/compras.js"></script>
     
 </head>
 <body>    
@@ -39,8 +40,37 @@
 
         <div class="card" id="card-main">
             <div class="card-header">
+                <div class="btn-group fa-pull-right">
+                    <a type="button" class="btn btn-danger agregar" href="/autoparts_system/modulos\compras\nuevo.php" title="Nueva compra"><i class="fas fa-plus"></i>Agregar</a>
+                
+                </div>
                 <h3>Compras</h3>
                 
+            </div>
+            <div class="card-body">
+            
+
+                <div class="card-body-todos text-danger">
+                    <table class="table table-striped" id="lista-compras">
+                        <thead>
+                            <tr>
+                                <th >No.</th>
+                                <th>Fecha</th>
+                                <th>Tipo de documento</th>
+                                <th>Proveedor</th>
+                                <th>Usuario</th> 
+                                <th>Total</th> 
+                                <th>Acciones</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                        
+                        
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
             <!-- Modal AGREGAR -->
             <!-- <div class="modal fade" id="nuevoEmpleado" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">

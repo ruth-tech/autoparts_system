@@ -15,7 +15,7 @@
     <!-- BOOTSTRAP CSS DESDE NUESTRO ORDENADOR -->
     <link rel="stylesheet" href="/autoparts_system/bootstrap-4.5.2/css/bootstrap.min.css">
     <!-- BOOTSTRAP CSS DESDE NUESTRO ORDENADOR -->
-    <link rel="stylesheet" href="/autoparts_system/bootstrap-5.0.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/autoparts_system/bootstrap-5.0.1/css/bootstrap.min.css"> -->
    
     <!-- ICONOS DE FONTAWESONME DESDE EL ORDENADOR -->
     <link rel="stylesheet" href="/autoparts_system/fontawesome-free/css/all.min.css">

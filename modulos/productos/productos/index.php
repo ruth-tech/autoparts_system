@@ -271,7 +271,7 @@
                                 <p>
                                 <div class="form-group">
                                 <label>Precio:</label>
-                                    <input type="number" id="precio_nuevo" placeholder="Ingrese precio" step="0.01" required>                                    
+                                    <input type="number" id="precio_nuevo" placeholder="Ingrese precio"  required>                                    
                                 </div>
                                 </p>
 

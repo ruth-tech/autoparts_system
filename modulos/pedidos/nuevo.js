@@ -33,6 +33,42 @@ $(document).ready(function() {
         });
     });
 
+    // AGREGAR CLIENTE NUEVO
+    $('#agregar').submit(function(e){
+        //usa e.preventDefault() evita la accion del submit
+        e.preventDefault()
+        const dataAgregar = {
+            nombre: $('#nombre').val(),
+            apellido: $('#apellido').val(),
+            dni: $('#dni').val(),
+            cuil: $('#cuil').val(),
+            sexo: $('#sexo').val(),
+            fchNac: $('#fchNac').val(),
+            nacionalidad: $('#nacionalidad').val(),
+            nro_cuenta: $('#nro_cuenta').val()
+        }
+        console.log(dataAgregar);
+        $.ajax({
+            url: '/autoparts_system/modulos/Clientes/cliente-add.php',
+            type: 'post',
+            data: dataAgregar,
+            
+        }).done(function(response){
+            console.log(response);
+            Swal.fire(response);
+           
+            resetearDatatables();
+            // Se resetea el formulario luego de haber enviado los datos
+            $('#agregar').trigger('reset');
+        }).fail(function(jqXHR, ajaxOptions, thrownError){
+          //en caso de que haya un error muestras un mensaje con el error
+          console.log(thrownError);
+        });
+        //Con esta linea se esconde el modal de agregar
+        $('#nuevoCliente').modal('hide');
+        
+    });
+
     //BUSCAR CLIENTE
     $('#buscarCliente').keyup(function(e){
         e.preventDefault();
@@ -232,12 +268,14 @@ $(document).ready(function() {
         if(rows > 0){
             var action = 'procesarPedido';
             var cliente = $('#idcliente').val();
+            var tipo_fac = $('#fact').val();
+            var tipo_pago = $('#pago').val();
 
             $.ajax({
                 url: 'autocompletar/agregar_detalle.php',
                 type: 'POST',
                 async: true,
-                data: {action:action,cliente:cliente},
+                data: {action:action,cliente:cliente,tipo_fac:tipo_fac,tipo_pago:tipo_pago},
 
                 success: function(response){
                     console.log(response);
@@ -286,10 +324,12 @@ $(document).ready(function() {
 //MOSTRAR/OCULTAR BOTON CONFIRMAR PEDIDO
 function viewButton(){
     if($('#detalle_pedido tr').length > 0){
-        $('#confirma_pedido').show();
+        // $('#confirma_pedido').show();
+        $('#continuar').show();
         $('#anular_pedido').show();
     }else{
-        $('#confirma_pedido').hide();
+        // $('#confirma_pedido').hide();
+        $('#continuar').hide();
         $('#anular_pedido').hide();
     }
 }

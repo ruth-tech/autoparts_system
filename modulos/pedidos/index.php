@@ -15,13 +15,14 @@ if (!isset($_SESSION["logueado"])) {
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Pedidos</title>
+    <title>Listado de Ventas</title>
     <?php require '../../php/head_link.php'; ?>
     <?php require '../../php/head-datatables-link.php';?> 
     <?php require '../../php/head_script.php'; ?>
     <?php require '../../php/head-datatables-script.php';?>
     <!-- <link rel="stylesheet" href="\autoparts_system\css\clientes.css"> -->
     <script src="pedidos.js"></script>
+
     
 
 <body>
@@ -31,11 +32,11 @@ if (!isset($_SESSION["logueado"])) {
 
         <div class="card" id="card-main">
             <div class="card-header">
-                <div class="btn-group fa-pull-right">
-                <a type="button" class="btn btn-danger agregar" href="/autoparts_system/modulos\pedidos\nuevo.php" title="Nuevo pedido"><i class="fas fa-plus"></i>Agregar</a>
+                <div class="nuevo-pedido btn-group fa-pull-right">
+                <a type="button" class="btn btn-danger agregar"  title="Nuevo pedido"><i class="fas fa-plus"></i>Agregar</a>
                 
                 </div>
-                <h3>Pedidos</h3>
+                <h3>Ventas</h3>
             </div>
 
             <?php require 'todos/index.php';?>
@@ -53,3 +54,4 @@ if (!isset($_SESSION["logueado"])) {
     
 </body>
 </html>
+<!-- -->

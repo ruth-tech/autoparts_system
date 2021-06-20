@@ -1,1 +1,0 @@
-asignar_usuario

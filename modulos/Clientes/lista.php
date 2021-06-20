@@ -33,7 +33,7 @@
                 'personaId' => $row['persona_id'],
                 'clienteId' => $row['cliente_id'],
                 'cliente' => $row['apellidos_persona'].", ".$row['nombres_persona'],
-                'cuil' => $row['persona_cuil'],
+                'dni' => $row['persona_dni'],
                 'nro_cuenta' => $row['cliente_nro_cuenta']
             );
         }

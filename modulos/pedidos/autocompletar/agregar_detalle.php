@@ -1,6 +1,20 @@
 <?php
 session_start();
 include '../../../php/conexion.php';
+
+    // COMPROBAR CAJA ABIERRTA
+    if ($_POST['action']=='comprobar_caja') {
+        $sql = "SELECT * from caja where rela_estado = 1";
+        $rs = $conexion->query($sql) or die ($conexion->error);
+        
+        if (mysqli_num_rows($rs) > 0) {
+            echo 0;
+            exit;
+        }else {
+            echo 1;
+            exit;
+        }
+    }
     //extrae datos del detalle_temp
     if($_POST['action'] == 'searchForDetalle'){
         if(empty($_POST['user'])){
@@ -277,24 +291,29 @@ include '../../../php/conexion.php';
 
     //procesar pedido
     if($_POST['action'] == 'procesarPedido'){
+        // print_r($_POST);
+        // exit;
         if(empty($_POST['cliente'])){
             $idcliente = 1;
+           
         }else {
             $idcliente = $_POST['cliente'];
+           
         }
-
+        $tipo_pago = $_POST['tipo_pago'];
+        $tipo_fac = $_POST['tipo_fac'];
         $usuario = $_SESSION['id'];
 
         $query = mysqli_query($conexion,"SELECT * FROM detalle_temp where rela_user = $usuario");
         $result = mysqli_num_rows($query);
 
         if ($result > 0) {
-            $query_procesar = mysqli_query($conexion,"CALL procesar_pedido($idcliente,$usuario)");
+            $query_procesar = mysqli_query($conexion,"CALL procesar_pedido($idcliente,$usuario,$tipo_fac,$tipo_pago)");
             $result_detalle = mysqli_num_rows($query_procesar);
 
             if ($result_detalle > 0) {
                 
-                echo 'Pedido agregado correctamente';
+                echo 'Venta facturada correctamente';
             }else {
                 echo "0";
             }
@@ -304,4 +323,29 @@ include '../../../php/conexion.php';
         mysqli_close($conexion);
         exit;
     }
+
+    //FACTURAR PEDIDO 
+    if($_POST['action'] == 'facturarPedido'){
+    
+        $user = $_SESSION['id'];
+        $pedido = $_POST['pedido'];
+        $query_fac = mysqli_query($conexion,"SELECT * FROM pedidos 
+                                                WHERE pedido_id = $pedido AND rela_user = $user");
+        $res = mysqli_num_rows($query_fac);
+        $factura = mysqli_fetch_assoc($query_fac);
+        mysqli_close($conexion);
+        if($res > 0){
+            $jsonstring = json_encode($factura);
+            echo $jsonstring;
+            exit;
+        }else{
+            echo '0';
+            exit;
+        }
+    
+    }
+    // INNER JOIN facturas f ON p.pedido_id = f.rela_pedido
+    // INNER JOIN detalle_pedido dp ON p.pedido_id = dp.rela_pedido
+
+
 ?>

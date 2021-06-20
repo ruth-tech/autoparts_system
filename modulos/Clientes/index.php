@@ -58,7 +58,7 @@
                             <tr>
                                 <td>Id</td>
                                 <td>Cliente</td>
-                                <td>Cuil</td>
+                                <td>DNI</td>
                                 <td>Cuenta</td>
                                 <td>Informacion</td>
                                 <td>Acciones</td>

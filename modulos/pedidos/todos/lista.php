@@ -21,17 +21,19 @@
             CONCAT('$ ',p.pedido_total) AS total, 
             pe.pedido_estado_descripcion,
             c.`nombreCliente`,
-            e.`nombreEmpleado`" 
+            e.`nombreEmpleado`,
+            f.no_factura, tf.tipo_factura_descripcion as tipo"             
         ." FROM pedidos p"
+        ." INNER JOIN facturas f ON p.pedido_id = f.rela_pedido"
         ." INNER JOIN pedidos_estados pe ON p.`rela_pedido_estado`=pe.`pedido_estado_id`"
         ." INNER JOIN vw_cliente_nombre c ON c.`idcliente`=p.`rela_cliente`"
         ." INNER JOIN vw_empleado_nombre e ON e.`usuarioid`=p.`rela_user`"
-        ." WHERE pe.pedido_estado_descripcion = 'PENDIENTE' OR pe.pedido_estado_descripcion = 'ANULADO'";
+        ." INNER JOIN tipo_factura tf ON tf.tipo_factura_id = f.rela_tipo_factura";
         // echo $sql1;
         // exit;
 
         $rs_pedidos = $conexion->query($sql1) or die($conexion->error);   
-
+        
         while($data = mysqli_fetch_assoc($rs_pedidos)){
             $json["data"][]= $data;
         }

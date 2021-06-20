@@ -24,16 +24,6 @@ foreach($lista as $milista){
     // aqui agregamos las opciones
     echo '<li onclick="set_item(\''.str_replace("'","\'",$milista['rela_persona']).'\')">'.$cliente.'</li>';
 }
-// if ($result->num_rows > 0) {
-//     while ($row = $result->fetch_assoc()) {                
-//         $html .= '<div><a class="suggest-element" data="'.utf8_encode($row['apellidos_persona'].', '.$row['nombres_persona']).'" personaId='.$row['rela_persona'].'>'.utf8_encode($row['apellidos_persona'].', '.$row['nombres_persona']).'</a></div>';
-//     }
-// }
-// echo $html;
-?>
 
-<!-- SELECT * FROM clientes 
-INNER JOIN personas_fisicas ON clientes.rela_persona_fisica= personas_fisicas.persona_fisica_id 
-WHERE clientes.estado=1
-AND personas_fisicas.apellidos_persona LIKE "%'.strip_tags($key)'%"
-AND personas_fisicas.nombres_persona LIKE "%'.strip_tags($key)'%" -->
+
+?>

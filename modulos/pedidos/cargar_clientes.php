@@ -28,9 +28,9 @@ include '../../php/conexion.php';
             if($result > 0){
                 // RECORRER Y GUARDAR EN UN ARRAY LOS RESULTADOS DE LA CONSULTA
                 while($row = mysqli_fetch_array($res)){
-                    $row_array['id'] = $row['id'];
-                    $row_array['cliente']=$row['cliente'];
-                    $row_array['contacto']=$row['contacto'];
+                    $row_array['id'] = (!empty($row['id']))   ?  $row['id'] : 1 ;
+                    $row_array['cliente']=(!empty($row['cliente']))   ?  $row['cliente'] : "CONSUMIDOR FINAL" ;
+                    $row_array['contacto']=(!empty($row['contacto']))   ?  $row['contacto'] : "-" ;
                         $calle = (!empty($row['calle']))   ?  'Calle:'.$row['calle'] : "" ;
                         $altura = (!empty($row['altura']))   ?  'Altuta:'.$row['altura'] : "" ;
                         $torre = (!empty($row['torre']))   ?  'Torre:'.$row['torre'] : "" ;
@@ -38,7 +38,7 @@ include '../../php/conexion.php';
                         $manzana = (!empty($row['manzana']))   ?  'Mz:'.$row['manzana'] : "";
                         $sector = (!empty($row['sector']))   ?  'Sector:'.$row['sector'] : "" ;
                         $parcela = (!empty($row['parcela']))   ?  'Casa:'.$row['parcela'] : "" ;            
-                    $row_array['domicilio']=$row['barrio']." ".$calle." ".$altura." ".$piso." ".$torre." ".$manzana." ".$sector." ".$parcela;
+                    $row_array['domicilio']="Barrio: ".$row['barrio']." ".$calle." ".$altura." ".$piso." ".$torre." ".$manzana." ".$sector." ".$parcela;
                     
                     
                     array_push($return_arr,$row_array);
